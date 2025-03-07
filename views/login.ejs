@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('partials/head')%>
+<body class="px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
+    <%-include('partials/topbar')%> 
+  <!-- Nav bar -->
+  <div class="nav flex">  
+    <div class="w-full ml-7">
+      <div class="navigation px-1 py-5 text-lg">
+        <div class="flex items-center justify-between">
+            <div class="nav flex items-center justify-center gap-7 text-base">
+              <a href="/home" class="">HOME</a>
+              <a href="/men" class="">MEN</a>
+              <a href="/women" class="">WOMEN</a>
+              <a href="/wedding" class="">WEDDING</a>
+              <a href="/sale" class="">SALE</a>
+            </div>
+            <div class="auth flex items-center justify-center gap-4">
+              <a href="/login" class="">Login/Signup</a> 
+            </div>
+          </div>
+      </div> 
+    </div>
+  </div>
+ 
+  <!-- login -->
+   <div class="box flex items-center justify-center my-10 rounded-2xl">
+       <div class="login flex flex-col bg-white items-start justify-center gap-5 px-3 w-[25vw] py-3">
+     
+         <h2 class="text-left my-3 tracking-widest">LOGIN OR SIGHUP</h2>
+         <p class="text-xs text-gray-500">To quickly find your favourite items, saved addresses and payments.</p>
+         <input type="email" placeholder="Email ID / Mobile No." class="w-full outline-none mt-6 underline">
+         <a href="" class="w-full bg-gray-800 text-white py-1 text-center">continue</a>
+
+         <div class="text-center text-xs py-2 w-full">
+            By continuing, I agree to AD
+            <a href="" class="font-bold">Privacy Policy</a> and
+            <a href="" class="font-bold"> Terms of use</a>
+          </div>
+       </div>
+   </div>
+   
+  <!-- appointment -->
+  <div class="apointment text-whit -mx-16"> 
+    <!-- down -->
+    <div class="down text-white flex bg-[#65350F] py-7 items-center justify-center gap-3">
+      <h4 class="">Enter Into The World of EComfy</h4>
+      <div class="inp border-b-white border-b-2 py-0.5">
+        <input type="email" class="outline-none" placeholder="Enter your email here" />
+        <i class="ri-send-plane-2-fill"></i>
+      </div>
+    </div>
+  </div> 
+    <%-include('partials/footer')%>
+    <script src="/js/script.js"></script>
+</body>
+</html>
