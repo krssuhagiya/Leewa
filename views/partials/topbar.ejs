@@ -1,24 +1,36 @@
-<div class="top flex justify-between py-3 border-b-[0.5px] border-[#EDF1FF]">
-    <div class="left flex items-center gap-2">
-      <span
-        class="text-4xl font-bold text-[#65350F] border-[0.5px] border-[#EDF1FF] flex items-center justify-center w-14 h-14">E</span>
-      <h2 class="text-4xl font-semibold">Comphy</h2>
-    </div>
+<!-- Top Bar -->
+<div class="top flex flex-wrap justify-between items-center py-3 border-b border-gray-300 px-4 md:px-8">
 
-    <div class="middle w-[60vw] flex items-center justify-center">
-      <input type="text" placeholder="Search for products"
-        class="outline-0 border-[0.5px] tracking-normal border-[#EDF1FF] px-4 py-1.5 w-[75%]" />
-      <i class="ri-search-2-line border-[0.5px] text-[#65350F] border-[#EDF1FF] px-4 py-1.5"></i>
-    </div>
-
-    <div class="right flex items-center gap-2">
-      <div class="like flex items-center gap-2 text-lg border-[0.5px] border-[#EDF1FF] w-fit h-fit px-4 py-1">
-        <i class="ri-heart-line text-[#65350F]"></i>
-        <span class="text-sm">0</span>
-      </div>
-      <div class="cart flex items-center gap-2 text-lg border-[0.5px] border-[#EDF1FF] w-fit h-fit px-4 py-1">
-        <i class="ri-shopping-cart-line text-[#65350F]"></i>
-        <span class="text-sm">0</span>
-      </div>
-    </div>
+  <!-- Left (Logo) -->
+  <div class="left flex items-center gap-1">
+    <span class="text-4xl font-bold text-[#65350F]  border-gray-300 flex items-center justify-center w-14 h-14">
+      &#x269B;
+    </span>
+    <h2 class="text-3xl font-semibold">Leewa</h2>
   </div>
+
+  <!-- Middle (Search Bar) -->
+  <div class="middle flex items-center w-full md:w-[50vw] border border-gray-300 rounded-lg overflow-hidden">
+    <input 
+      type="text" 
+      placeholder="Search for products..." 
+      class="flex-grow px-4 py-2 outline-none"
+    />
+    <button class="px-4 py-2 bg-[#65350F] text-white">
+      <i class="ri-search-2-line"></i>
+    </button>
+  </div>
+
+  <!-- Right (Wishlist & Cart) -->
+  <div class="right flex items-center gap-4">
+    <button class="like flex items-center gap-2 text-lg border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+      <i class="ri-heart-line text-[#65350F]"></i>
+      <span class="text-sm">0</span>
+    </button>
+    <button class="cart flex items-center gap-2 text-lg border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+      <i class="ri-shopping-cart-line text-[#65350F]"></i>
+      <span class="text-sm">0</span>
+    </button>
+  </div>
+
+</div>

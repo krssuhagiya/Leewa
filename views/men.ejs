@@ -1,87 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <%-include('partials/head')%>
-<body class="px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
+<body class="px-6 sm:px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
     <%-include('partials/topbar')%>
     <%-include('partials/navbar')%>
-     <!-- men -->
-  <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
-    Elegance in Every Stitch
-  </h2>
-  <div class="main my-16 grid grid-cols-4 gap-6">
-    <div class="card w-fit p-2">
-      <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-        <img src="./img/mens1.jpg" alt="" class="object-cover">
-      </div>
-      <div class="tag flex items-center justify-between px-1">
-        <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-        <i class="ri-heart-2-line text-xl"></i>
-      </div>
-      <h4 class="tracking-widest font-[400] my-0.5 text-base">Lokit Hand-embroidered Silk Sherwani - Ivory</h4>
-      <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>245,900</span></p>
-      <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
+
+    <!-- Men Section -->
+    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
+        Elegance in Every Stitch
+    </h2>
+
+    <div class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <% let products = [
+        { img: 'mens1.jpg', title: 'Lokit Embroidered Silk Sherwani - Ivory', price: '30,000' },
+        { img: 'mens2.jpg', title: 'Tuhin Embroidered Silk Kurta - Ivory', price: '29,500' },
+        { img: 'mens3.jpg', title: 'Off White Silk Trousers', price: '10,900' },
+        { img: 'mens4.jpg', title: 'Abhinit Nehru Jacket - Blue', price: '18,900' },
+        { img: 'mens5.jpg', title: 'Rukham Printed Silk Kurta - Ivory', price: '14,900' },
+        { img: 'mens6.jpg', title: 'Aarav Handwoven Banarasi Kurta - Green', price: '22,500' },
+        { img: 'men7.jpg', title: 'Farhan Embroidered Kurta - Navy Blue', price: '27,500' },
+        { img: 'men8.jpg', title: 'Ehsaan Classic Linen Kurta - Peach', price: '12,500' },
+        { img: 'men9.jpg', title: 'Arhaan Velvet Bandhgala - Maroon', price: '25,000' },
+        { img: 'men10.jpg', title: 'Irfan Pastel Floral Kurta - Sky Blue', price: '15,800' },
+        { img: 'men11.jpg', title: 'Shayan Silk Chikankari Kurta - Mint', price: '17,900' },
+        { img: 'men12.jpg', title: 'Rehan Embroidered Nehru Jacket - Ivory', price: '23,500' },
+        { img: 'men13.jpg', title: 'Sahil Handwoven Chanderi Kurta - Yellow', price: '19,000' },
+        { img: 'men14.jpg', title: 'Wasiq Classic Linen Jacket - Grey', price: '28,500' },
+        { img: 'men15.jpg', title: 'Javed Digital Print Blazer - Olive', price: '30,000' },
+        { img: 'men16.jpg', title: 'Rafiq Silk Printed Sherwani - Gold', price: '26,000' },
+        { img: 'men17.jpg', title: 'Yaseer Brocade Silk Bandhgala - Burgundy', price: '24,900' },
+        { img: 'men18.jpg', title: 'Fahad Classic Jodhpuri Suit - Midnight Blue', price: '29,000' },
+        { img: 'men19.jpg', title: 'Aftab Handloom Cotton Kurta - Sand Beige', price: '9,500' },
+        { img: 'men20.jpg', title: 'Danish Printed Pathani Suit - Charcoal', price: '14,500' },
+        { img: 'men21.jpg', title: 'Haris Tailored Wool Trousers - Navy', price: '8,900' },
+        { img: 'men22.jpg', title: 'Noor Classic Cotton Nehru Jacket - White', price: '16,800' },
+        { img: 'men23.jpg', title: 'Tariq Silk Kurta Set - Moss Green', price: '20,500' },
+        { img: 'men24.jpg', title: 'Azam Hand-stitched Jodhpuri Jacket - Teal', price: '28,000' },
+        { img: 'men25.jpg', title: 'Mansoor Jacquard Banarasi Kurta - Plum', price: '24,500' },
+        { img: 'men26.jpg', title: 'Hasan Regal Embroidered Sherwani - Royal Blue', price: '30,000' },
+        { img: 'men27.jpg', title: 'Rohan Textured Silk Kurta - Olive Green', price: '13,900' },
+        { img: 'men28.jpg', title: 'Zidan Printed Cotton Kurta - Sky Blue', price: '7,500' },
+        { img: 'men29.jpg', title: 'Kiaan Linen Blazer - Dusty Rose', price: '27,000' }, 
+    ];
+     %>
+
+        <% products.forEach(product => { %>
+        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
+                <img src="./img/<%= product.img %>" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </div>
+            <div class="tag flex items-center justify-between px-1 mt-2">
+                <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
+                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
+            </div>
+            <h4 class="tracking-widest font-[400] my-0.5 text-base"><%= product.title %></h4>
+            <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span><%= product.price %></span></p>
+            <a href="#" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">READY TO SHIP</a>
+        </div>
+        <% }); %>
     </div>
-    <div class="card w-fit p-2">
-      <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-        <img src="./img/mens2.jpg" alt="" class="object-cover">
-      </div>
-      <div class="tag flex items-center justify-between px-1">
-        <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-        <i class="ri-heart-2-line text-xl"></i>
-      </div>
-      <h4 class="tracking-widest font-[400] my-0.5 text-base">Tuhin Embroidered Silk Kurta - Ivory</h4>
-      <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>61,900</span></p>
-      <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>
-    <div class="card w-fit p-2">
-      <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-        <img src="./img/mens3.jpg" alt="" class="object-cover">
-      </div>
-      <div class="tag flex items-center justify-between px-1">
-        <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-        <i class="ri-heart-2-line text-xl"></i>
-      </div>
-      <h4 class="tracking-widest font-[400] my-0.5 text-base">Off White Silk Trousers</h4>
-      <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>10,900</span></p>
-      <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>
-    <div class="card w-fit p-2">
-      <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-        <img src="./img/mens4.jpg" alt="" class="object-cover">
-      </div>
-      <div class="tag flex items-center justify-between px-1">
-        <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-        <i class="ri-heart-2-line text-xl"></i>
-      </div>
-      <h4 class="tracking-widest font-[400] my-0.5 text-base">Abhinit Nehru Jacket - Blue</h4>
-      <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>18,900</span></p>
-      <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>
-    <div class="card w-fit p-2">
-      <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-        <img src="./img/mens5.jpg" alt="" class="object-cover">
-      </div>
-      <div class="tag flex items-center justify-between px-1">
-        <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-        <i class="ri-heart-2-line text-xl"></i>
-      </div>
-      <h4 class="tracking-widest font-[400] my-0.5 text-base">Rukham Printed Silk Kurta - Ivory</h4>
-      <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>14,900</span></p>
-      <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>
-    <div class="card w-fit p-2">
-      <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-        <img src="./img/mens6.jpg" alt="" class="object-cover">
-      </div>
-      <div class="tag flex items-center justify-between px-1">
-        <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-        <i class="ri-heart-2-line text-xl"></i>
-      </div>
-      <h4 class="tracking-widest font-[400] my-0.5 text-base">Zimraan Hand-embroidered Silk Sherwani - Beige</h4>
-      <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>275,000</span></p>
-      <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>
-  </div>
+
     <%-include('partials/appointment')%>
     <%-include('partials/footer')%>
     <script src="/js/script.js"></script>

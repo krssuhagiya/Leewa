@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('partials/head')%>
+<body class="px-6 sm:px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
+    <%-include('partials/topbar')%> 
+     <!-- Navbar -->
+     <div class="navbar flex w-full ml-7">
+        <div class="navigation px-1 py-5 text-lg w-full">
+            <div class="flex items-center justify-between">
+                <div class="nav-links flex items-center justify-center gap-7 text-base">
+                    <a href="/home">HOME</a>
+                    <a href="/men">MEN</a>
+                    <a href="/women">WOMEN</a>
+                    <a href="/wedding">WEDDING</a>
+                    <a href="/sale">SALE</a>
+                </div>
+                <div class="auth flex items-center justify-center gap-4">
+                    <a href="/login" class="hover:text-gray-600 transition">Login/Signup</a> 
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <!-- Groom Section -->
+    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-11">
+        Timeless Elegance for the Modern Groom
+    </h2>
+
+    <div class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <% let groomProducts = [
+        { img: 'groom1.jpg', title: 'Lokit Hand-embroidered Silk Sherwani - Ivory', price: '30,000' },
+        { img: 'groom2.jpg', title: 'Trish Sherwani - Sage Green', price: '29,500' },
+        { img: 'groom3.jpg', title: 'Vihan Handcrafted Sherwani - Ivory', price: '26,000' },
+        { img: 'groom4.jpg', title: 'Arjun Jodhpuri Jacket - Black', price: '30,000' },
+        { img: 'groom5.jpg', title: 'Ruhan Embroidered Kurta - Beige', price: '15,500' },
+        { img: 'groom6.jpg', title: 'Ravi Handwoven Kurta - Olive Green', price: '18,000' },
+        { img: 'groom7.jpg', title: 'Neel Digital Print Kurta - Sky Blue', price: '12,900' },
+        { img: 'groom8.jpg', title: 'Alok Linen Blazer - Dusty Rose', price: '28,000' },
+        { img: 'groom9.jpg', title: 'Kabir Textured Suit - Navy Blue', price: '27,500' },
+        { img: 'groom10.jpg', title: 'Faizan Classic Pathani Suit - Charcoal Grey', price: '19,000' },
+        { img: 'groom11.jpg', title: 'Aryan Classic Black Bandhgala', price: '25,000' },
+        { img: 'groom12.jpg', title: 'Zayan Indo-Western Sherwani - Gold', price: '26,500' },
+        { img: 'groom13.jpg', title: 'Kiaan Designer Waistcoat - Olive Green', price: '22,000' },
+        { img: 'groom14.jpg', title: 'Devansh Printed Silk Kurta - Peach', price: '20,000' },
+        { img: 'groom15.jpg', title: 'Harsh Classic Tuxedo Suit - Grey', price: '28,500' },
+        { img: 'groom16.jpg', title: 'Ritik Velvet Sherwani - Maroon', price: '30,000' },
+        { img: 'groom17.jpg', title: 'Yuvraj Designer Brocade Jacket - Blue', price: '28,000' },
+        { img: 'groom18.jpg', title: 'Aarav Classic Khadi Kurta - Ivory', price: '18,000' }
+        ]; %>
+
+        <% groomProducts.forEach(product => { %>
+        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
+                <img src="./img/<%= product.img %>" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </div>
+            <div class="tag flex items-center justify-between px-1 mt-2">
+                <h5 class="text-[0.6rem] font-[600]">Groom Collection</h5>
+                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
+            </div>
+            <h4 class="tracking-widest font-[400] my-0.5 text-base"><%= product.title %></h4>
+            <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span><%= product.price %></span></p>
+            <a href="#" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">READY TO SHIP</a>
+        </div>
+        <% }); %>
+    </div>
+
+    <%-include('partials/appointment')%>
+    <%-include('partials/footer')%>
+    <script src="/js/script.js"></script>
+</body>
+</html>

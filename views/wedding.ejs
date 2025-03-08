@@ -4,77 +4,54 @@
 <body class="px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
     <%-include('partials/topbar')%>
     <%-include('partials/navbar')%>
-    <!-- wedding -->
+
+    <!-- Wedding Section -->
     <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
         Eternal Elegance, Timeless Love
-      </h2>
-      <!-- explore -->
-      <div class="explore -mx-16 flex w-screen mt-5">
+    </h2>
+
+    <!-- Explore Section -->
+    <div class="explore -mx-16 flex flex-col md:flex-row w-screen mt-5">
         <!-- Bride Section -->
-        <div class="bride relative w-1/2 h-[90vh] overflow-hidden">
-          <img src="./img/bridel.webp" alt="" class="h-full w-full object-cover">
-          <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center">
-            <h2 class="text-3xl font-bold uppercase">For the Bride</h2>
-            <p class="text-lg mt-2 cursor-pointer hover:underline">Explore</p>
-          </div>
+        <div class="relative w-full md:w-1/2 h-[90vh] overflow-hidden group">
+            <img src="./img/bridel.webp" alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center">
+                <h2 class="text-3xl font-bold uppercase">For the Bride</h2>
+                <p class="text-lg mt-2 cursor-pointer hover:underline"><a href="/bride">Explore</a></p>
+            </div>
         </div>
-    
+
         <!-- Groom Section -->
-        <div class="groom relative w-1/2 h-[90vh] overflow-hidden">
-          <img src="./img/groom.webp" alt="" class="h-full w-full object-cover">
-          <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center">
-            <h2 class="text-3xl font-bold uppercase">For the Groom</h2>
-            <p class="text-lg mt-2 cursor-pointer hover:underline">Explore</p>
-          </div>
+        <div class="relative w-full md:w-1/2 h-[90vh] overflow-hidden group">
+            <img src="./img/groom.webp" alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center">
+                <h2 class="text-3xl font-bold uppercase">For the Groom</h2>
+                <p class="text-lg mt-2 cursor-pointer hover:underline"><a href="/groom">Explore</a></p>
+            </div>
         </div>
     </div>
-    
-    <!-- Categories -->
+
+    <!-- Categories Section -->
     <div class="categories tracking-widest my-16">
-      <h2 class="text-center text-3xl pb-4">SHOP BY CATEGORY</h2>
-      <div class="category flex items-center justify-center gap-4">
-        <div class="card h-[55vh] w-[17vw] text-center">
-          <img src="./img/cat1.jpg" alt="" class="w-full h-[95%]" />
-          <p class="text-xs py-2">SARRES</p>
+        <h2 class="text-center text-3xl pb-4">SHOP BY CATEGORY</h2>
+        <div class="category grid grid-cols-2 md:grid-cols-4 gap-6 px-24">
+            <% let categories = [
+                { img: 'cat1.jpg', name: 'SAREES' },
+                { img: 'cat2.jpg', name: 'LEHENGA SETS' },
+                { img: 'cat3.jpg', name: 'KURTA SET' },
+                { img: 'cat4.jpg', name: 'MENS KURTA' }
+            ]; %>
+
+            <% categories.forEach(category => { %>
+            <div class="card h-[55vh] w-[80%] md:w-[17vw] text-center transition">
+                <img src="./img/<%= category.img %>" alt="<%= category.name %>" class="w-full h-[95%] object-cover transition-transform duration-300 hover:scale-105">
+                <p class="text-xs py-2"><%= category.name %></p>
+            </div>
+            <% }); %>
         </div>
-        <div class="card h-[55vh] w-[17vw] text-center">
-          <img src="./img/cat2.jpg" alt="" class="w-full h-[95%]" />
-          <p class="text-xs py-2">LEHENGHA SETS</p>
-        </div>
-        <div class="card h-[55vh] w-[17vw] text-center">
-          <img src="./img/cat3.jpg" alt="" class="w-full h-[95%]" />
-          <p class="text-xs py-2">KURTA SET</p>
-        </div>
-        <div class="card h-[55vh] w-[17vw] text-center">
-          <img src="./img/cat4.jpg" alt="" class="w-full h-[95%]" />
-          <p class="text-xs py-2">MENS KURTA</p>
-        </div>
-      </div>
     </div>
-    
-    
-    <!-- appointment -->
-    <div class="apointment text-whit -mx-16">
-      <!-- top -->
-      <div class="top h-[95vh] w-full bg-[url('./img/appointment.webp')] bg-cover">
-        <div class="content flex flex-col items-center justify-end gap-3 h-full pb-20 text-white">
-          <h4 class="text-2xl tracking-[0.7rem]">SCHEDULE AN APPOINTMENT</h4>
-          <p>
-            Click below to schedule a virtual or an in-store appointment at onc
-            of our flagship stores.
-          </p>
-          <a href="#" class="bg-white text-black py-2 px-4 rounded tracking-widest my-4">Book Now</a>
-        </div>
-      </div>
-      <!-- down -->
-      <div class="down text-white flex bg-[#65350F] py-7 items-center justify-center gap-3">
-        <h4 class="">Enter Into The World of EComfy</h4>
-        <div class="inp border-b-white border-b-2 py-0.5">
-          <input type="email" class="outline-none" placeholder="Enter your email here" />
-          <i class="ri-send-plane-2-fill"></i>
-        </div>
-      </div>
-    </div>
+
+    <%-include('partials/appointment')%>
     <%-include('partials/footer')%>
     <script src="/js/script.js"></script>
 </body>

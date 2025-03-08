@@ -1,87 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <%-include('partials/head')%>
-<body class="px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
+<body class="px-6 sm:px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
     <%-include('partials/topbar')%>
     <%-include('partials/navbar')%>
-    <!-- women -->
-  <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
-    Grace in Every Thread
-  </h2>
-  <div class="main my-16 grid grid-cols-4 gap-6">
-    <div class="card w-fit p-2">
-        <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-            <img src="./img/women1.jpg" alt="" class="object-cover">
+
+    <!-- Women's Section -->
+    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
+        Grace in Every Thread
+    </h2>
+
+    <div class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <% let womenProducts = [
+             { img: 'women1.jpg', title: 'ARIA SKIRT SET - BLUSH', price: '20,000' },
+    { img: 'women2.jpg', title: 'Sahasra Gota Patti Silk Sharara Set - Black', price: '19,500' },
+    { img: 'women3.jpg', title: 'Sawsan Embroidered Mul Tabard Set - White', price: '18,900' },
+    { img: 'women4.jpg', title: 'Rowan Printed Kaftan - Sage', price: '17,500' },
+    { img: 'women5.jpg', title: 'Moonlight Bloom Printed Silk Skirt Set - Blue', price: '16,800' },
+    { img: 'women6.jpg', title: 'Silaam Printed Kaftan - Powder Blue', price: '16,500' },
+    { img: 'women7.jpg', title: 'Elara Embroidered Silk Kurta Set - Ruby Red', price: '15,900' },
+    { img: 'women8.jpg', title: 'Zara Handwoven Chanderi Saree - Gold', price: '15,500' },
+    { img: 'women9.jpg', title: 'Aisha Floral Embroidered Gown - Lilac', price: '15,000' },
+    { img: 'women10.jpg', title: 'Hanaa Sequined Anarkali Set - Emerald', price: '14,500' },
+    { img: 'women11.jpg', title: 'Seraphina Draped Saree Set - Blush Pink', price: '14,000' },
+    { img: 'women12.jpg', title: 'Mehira Organza Lehenga Set - Ivory', price: '13,800' },
+    { img: 'women13.jpg', title: 'Leora Layered Georgette Skirt Set - Champagne', price: '13,500' },
+    { img: 'women14.jpg', title: 'Fariha Embroidered Anarkali Set - Sapphire', price: '12,900' },
+    { img: 'women15.jpg', title: 'Isla Chiffon Printed Maxi Dress - Coral', price: '12,500' },
+    { img: 'women16.jpg', title: 'Zayna Banarasi Silk Lehenga - Maroon', price: '12,000' },
+    { img: 'women17.jpg', title: 'Kiara Pastel Floral Lehenga Set - Peach', price: '11,500' },
+    { img: 'women18.jpg', title: 'Samira Mirror Work Kurta Set - Beige', price: '11,000' },
+    { img: 'women19.jpg', title: 'Rivana Draped Silk Saree - Teal', price: '10,800' },
+    { img: 'women20.jpg', title: 'Noor Hand-Embroidered Sharara Set - Olive', price: '10,500' },
+    { img: 'women21.jpg', title: 'Celine Sequined Gown - Midnight Blue', price: '10,000' },
+    { img: 'women22.jpg', title: 'Aarya Georgette Anarkali Suit - Rose Gold', price: '9,500' },
+    { img: 'women23.jpg', title: 'Liana Brocade Saree Set - Plum', price: '9,000' }, 
+        ]; %>
+
+        <% womenProducts.forEach(product => { %>
+        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+
+            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
+                <img src="./img/<%= product.img %>" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </div>
+            <div class="tag flex items-center justify-between px-1 mt-2">
+                <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
+                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
+            </div>
+            <h4 class="tracking-widest font-[400] my-0.5 text-base"><%= product.title %></h4>
+            <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span><%= product.price %></span></p>
+            <a href="#" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">READY TO SHIP</a>
         </div>
-        <div class="tag flex items-center justify-between px-1">
-            <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-            <i class="ri-heart-2-line text-xl"></i>
-        </div>
-        <h4 class="tracking-widest font-[400] my-0.5 text-base">ARIA SKIRT SET - BLUSH</h4>
-        <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>45,000</span></p>
-        <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>  
-    <div class="card w-fit p-2">
-        <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-            <img src="./img/women2.jpg" alt="" class="object-cover">
-        </div>
-        <div class="tag flex items-center justify-between px-1">
-            <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-            <i class="ri-heart-2-line text-xl"></i>
-        </div>
-        <h4 class="tracking-widest font-[400] my-0.5 text-base">Sahasra Gota Patti Silk Sharara Set - Black</h4>
-        <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>125,000</span></p>
-        <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div>  
-    <div class="card w-fit p-2">
-        <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-            <img src="./img/women3.jpg" alt="" class="object-cover">
-        </div>
-        <div class="tag flex items-center justify-between px-1">
-            <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-            <i class="ri-heart-2-line text-xl"></i>
-        </div>
-        <h4 class="tracking-widest font-[400] my-0.5 text-base">Sawsan Embroidered Mul Tabard Set - White</h4>
-        <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>45,900</span></p>
-        <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div> 
-    <div class="card w-fit p-2">
-        <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-            <img src="./img/women4.jpg" alt="" class="object-cover">
-        </div>
-        <div class="tag flex items-center justify-between px-1">
-            <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-            <i class="ri-heart-2-line text-xl"></i>
-        </div>
-        <h4 class="tracking-widest font-[400] my-0.5 text-base">Rowan Printed Kaftan - Sage</h4>
-        <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>22,900</span></p>
-        <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div> 
-    <div class="card w-fit p-2">
-        <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-            <img src="./img/women5.jpg" alt="" class="object-cover">
-        </div>
-        <div class="tag flex items-center justify-between px-1">
-            <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-            <i class="ri-heart-2-line text-xl"></i>
-        </div>
-        <h4 class="tracking-widest font-[400] my-0.5 text-base">Moonlight Bloom Printed Silk Skirt Set - Blue</h4>
-        <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>60,000</span></p>
-        <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div> 
-    <div class="card w-fit p-2">
-        <div class="img h-[67vh] w-[22vw] bg-red-100 overflow-hidden">
-            <img src="./img/women6.jpg" alt="" class="object-cover">
-        </div>
-        <div class="tag flex items-center justify-between px-1">
-            <h5 class="text-[0.6rem] font-[600]">Client Name</h5>
-            <i class="ri-heart-2-line text-xl"></i>
-        </div>
-        <h4 class="tracking-widest font-[400] my-0.5 text-base">Silaam Printed Kaftan - Powder Blue</h4>
-        <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>110,000</span></p>
-        <a href="" class="text-[0.5rem] font-bold border py-1.5 px-2.5">READY TO SHIP</a>
-    </div> 
-  </div>
+        <% }); %>
+    </div>
 
     <%-include('partials/appointment')%>
     <%-include('partials/footer')%>

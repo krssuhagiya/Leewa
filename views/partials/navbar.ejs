@@ -1,76 +1,77 @@
-<div class="nav flex">
-<div class="left w-[23%]">
-  <div class="main-box">
-    <a class="title flex items-center justify-between px-6 bg-[#65350F] py-4 font-medium text-lg">
-      <h6 class="text-white">Categories</h6>
-      <i class="ri-arrow-down-s-line"></i>
-    </a>
-    <div class="category flex flex-col">
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Co-Ord Sets</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Sarees & Blouses</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Bottoms</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Kurtas & Shirts</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Gowns</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Lehenga Sets</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Kurta Sets</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Bandhgalas</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Nehru Jackets</a>
-      <a href="" class="border-[0.5px] border-[#EDF1FF] px-6 py-2">Sherwanis</a>
-    </div>
-  </div>
-</div>
+<!-- Navbar -->
+<div class="nav flex flex-col md:flex-row py-3 border-b border-gray-300 px-4 md:px-8">
 
-<div class="right w-[77%] ml-7">
-  <div class="navigation px-1 py-5 text-lg">
-    <div class="flex items-center justify-between">
-      <div class="nav flex items-center justify-center gap-7 text-base">
-        <a href="/home" class="">HOME</a>
-        <a href="/men" class="">MEN</a>
-        <a href="/women" class="">WOMEN</a>
-        <a href="/wedding" class="">WEDDING</a>
-        <a href="/sale" class="">SALE</a>
-      </div>
-      <div class="auth flex items-center justify-center gap-4">
-        <a href="/login" class="">Login/Signup</a> 
+  <!-- Left (Categories) -->
+  <div class="left md:w-[23%]">
+    <div class="main-box">
+      <a class="title flex items-center justify-between px-6 bg-[#65350F] py-4 font-medium text-lg text-white rounded-t-lg ">
+        <h6>Categories</h6>
+        <i class="ri-arrow-down-s-line"></i>
+      </a>
+      <div class="category flex flex-col">
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Co-Ord Sets</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Sarees & Blouses</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Bottoms</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Kurtas & Shirts</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Gowns</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Lehenga Sets</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Kurta Sets</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Bandhgalas</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Nehru Jackets</a>
+        <a href="#" class="border border-gray-300 px-6 py-2 hover:bg-gray-100">Sherwanis</a>
       </div>
     </div>
   </div>
-  <div class="relative w-full h-[410px] overflow-hidden">
-    <!-- slideshow Container -->
-    <div id="slideshow" class="flex transition-transform duration-500 ease-in-out">
-      <!-- Slide 1 -->
-      <div class="min-w-full h-[410px] relative">
-        <img src="img/slideshow1.jpg" class="w-full h-full object-cover" alt="Slide 1" />
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
-          <h4 class="text-lg uppercase font-medium mb-3">
-            10% Off Your First Order
-          </h4>
-          <h3 class="text-4xl font-semibold mb-4">Fashionable Dress</h3>
-          <a href="#" class="bg-white text-black py-2 px-4 rounded">Shop Now</a>
+
+  <!-- Right (Navigation + Slideshow) -->
+  <div class="right md:w-[77%] md:ml-7">
+
+    <!-- Navigation Links -->
+    <div class="navigation py-5 text-lg">
+      <div class="flex items-center justify-between">
+        <div class="nav flex items-center gap-7 text-base">
+          <a href="/home" class="hover:text-[#65350F]">HOME</a>
+          <a href="/men" class="hover:text-[#65350F]">MEN</a>
+          <a href="/women" class="hover:text-[#65350F]">WOMEN</a>
+          <a href="/wedding" class="hover:text-[#65350F]">WEDDING</a>
+          <a href="/sale" class="hover:text-[#65350F]">SALE</a>
         </div>
-      </div>
-
-      <!-- Slide 2 -->
-      <div class="min-w-full h-[410px] relative">
-        <img src="img/slideshow2.jpg" class="w-full h-full object-cover" alt="Slide 2" />
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
-          <h4 class="text-lg uppercase font-medium mb-3">
-            10% Off Your First Order
-          </h4>
-          <h3 class="text-4xl font-semibold mb-4">Reasonable Price</h3>
-          <a href="#" class="bg-white text-black py-2 px-4 rounded">Shop Now</a>
+        <div class="auth flex items-center gap-4">
+          <a href="/login" class="hover:text-[#65350F]">Login/Signup</a>
         </div>
       </div>
     </div>
-    <!-- buttons -->
-    <button id="prev"
-      class="absolute left-12 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 cursor-pointer rounded-full">
-      <i class="ri-arrow-left-s-line text-2xl"></i>
-    </button>
-    <button id="next"
-      class="absolute right-12 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 cursor-pointer rounded-full">
-      <i class="ri-arrow-right-s-line text-2xl"></i>
-    </button>
+
+    <!-- Slideshow -->
+    <div class="relative w-full h-[410px] overflow-hidden rounded-lg">
+      <div id="slideshow" class="flex transition-transform duration-500 ease-in-out">
+        <div class="min-w-full h-[410px] relative">
+          <img src="img/slideshow1.jpg" class="w-full h-full object-cover" alt="Slide 1" />
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
+            <h4 class="text-lg uppercase font-medium mb-3">10% Off Your First Order</h4>
+            <h3 class="text-4xl font-semibold mb-4">Fashionable Dress</h3>
+            <a href="#" class="bg-white text-black py-2 px-4 rounded">Shop Now</a>
+          </div>
+        </div>
+
+        <div class="min-w-full h-[410px] relative">
+          <img src="img/slideshow2.jpg" class="w-full h-full object-cover" alt="Slide 2" />
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
+            <h4 class="text-lg uppercase font-medium mb-3">10% Off Your First Order</h4>
+            <h3 class="text-4xl font-semibold mb-4">Reasonable Price</h3>
+            <a href="#" class="bg-white text-black py-2 px-4 rounded">Shop Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slideshow Buttons -->
+      <button id="prev" class="absolute left-12 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 cursor-pointer rounded-full">
+        <i class="ri-arrow-left-s-line text-2xl"></i>
+      </button>
+      <button id="next" class="absolute right-12 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 cursor-pointer rounded-full">
+        <i class="ri-arrow-right-s-line text-2xl"></i>
+      </button>
+    </div>
+
   </div>
-</div>
 </div>
