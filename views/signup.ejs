@@ -20,8 +20,8 @@
             <a href="/sale">SALE</a>
           </div>
           <div class="auth flex items-center justify-center gap-4">
-            <a href="/signup" class="hover:text-gray-600 transition"
-              >Signup</a
+            <a href="/login" class="hover:text-gray-600 transition"
+              >Login</a
             >
           </div>
         </div>
@@ -29,19 +29,26 @@
     </div>
 
     <!-- Login Box -->
-    <form action="/login" method="post">
+    <form action="/create-user" method="post">
       <div class="box flex items-center justify-center my-10 rounded-2xl">
         <div
           class="login flex flex-col bg-white items-start justify-center gap-5 px-6 py-6 w-[25vw] rounded-xl shadow-lg"
         >
           <h2 class="text-left my-3 tracking-widest text-xl font-semibold">
-            LOGIN
+            LOGIN OR SIGNUP
           </h2>
           <p class="text-xs text-gray-500">
             Quick access to your saved items, addresses, and payments.
           </p>
 
-          <!-- inputs of an user --> 
+          <!-- inputs of an user -->
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            class="w-full outline-none border-b border-gray-400 focus:border-black py-2"
+            required
+          />
           <input
             type="email"
             placeholder="Email ID"
@@ -58,7 +65,7 @@
           />
           <input
             type="submit"
-            value="login Account"
+            value="Create an Account"
             class="w-full bg-gray-800 text-white py-2 text-center rounded-lg hover:bg-gray-600 transition"
           />
 

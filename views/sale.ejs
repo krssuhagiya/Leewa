@@ -27,62 +27,130 @@
             <div class="sale-price flex justify-center lg:justify-start gap-4 items-center">
                 <p class="font-semibold text-2xl text-green-800">&#8377;95,000</p>
                 <p class="text-xl text-amber-700 line-through">&#8377;190,000</p>
-            </div>
-            <a href="#" class="text-sm font-bold border border-black py-2 px-4 inline-block mt-3 hover:bg-black hover:text-white transition">
-                READY TO SHIP
-            </a>
+            </div> 
             <p class="text-xs mt-6">
                 Inspired by palatial gardens, Farhin is crafted for daytime celebrations. Meticulously designed aari embroidery blends beautifully with the ivory tone and elegant silhouette of this ensemble.
             </p>
             <div class="cart flex w-full items-center justify-center lg:justify-start mt-4">
-                <a href="#" class="text-white bg-[#252525] w-1/2 text-center text-sm py-2">Add To Cart</a>
-                <i class="ri-heart-2-line text-2xl px-4 py-2 cursor-pointer hover:text-red-500"></i>
+                <a href="#" onclick="addToCart(bestSale._id)" class="text-sm font-bold border border-black py-2 px-4 inline-block mt-3 hover:bg-black hover:text-white transition">
+                    ADD TO CART
+                </a> 
             </div>
         </div>
     </div>
 
     <!-- Sale Items Grid -->
-    <div class="main grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-16">
-        <% let saleProducts = [
-        { img: 'sale1.jpg', title: 'Ava Embroidered Saree Set - Old Rose', oldPrice: '49,000', newPrice: '34,300' },
-        { img: 'sale2.jpg', title: 'Bayou Hemp Coord - Green', oldPrice: '13,900', newPrice: '6,950' },
-        { img: 'sale3.jpg', title: 'Aayansh Bandi Emerald', oldPrice: '49,500', newPrice: '24,750' },
-        { img: 'sale4.jpg', title: 'Trish Sherwani - Sage Green', oldPrice: '65,000', newPrice: '52,000' },
-        { img: 'mens1.jpg', title: 'Lokit Hand-embroidered Silk Sherwani - Ivory', oldPrice: '300,000', newPrice: '245,900' },
-        { img: 'sale6.jpg', title: 'Evelyn Chiffon Anarkali - Peach', oldPrice: '32,000', newPrice: '24,000' },
-        { img: 'sale7.jpg', title: 'Zoya Floral Printed Kaftan - Blue', oldPrice: '19,900', newPrice: '14,500' },
-        { img: 'sale8.jpg', title: 'Ruhan Embroidered Kurta - Beige', oldPrice: '15,500', newPrice: '10,850' },
-        { img: 'sale9.jpg', title: 'Sia Cotton Silk Saree - Maroon', oldPrice: '28,500', newPrice: '21,500' },
-        { img: 'sale10.jpg', title: 'Arjun Jodhpuri Jacket - Black', oldPrice: '42,000', newPrice: '30,800' },
-        { img: 'sale11.jpg', title: 'Meera Banarasi Handloom Saree - Emerald', oldPrice: '55,000', newPrice: '41,000' },
-        { img: 'sale12.jpg', title: 'Ravi Handwoven Kurta - Olive Green', oldPrice: '18,000', newPrice: '12,500' },
-        { img: 'sale13.jpg', title: 'Yara Printed Silk Dress - Mustard', oldPrice: '16,500', newPrice: '9,900' },
-        { img: 'sale14.jpg', title: 'Vihan Handcrafted Sherwani - Ivory', oldPrice: '88,000', newPrice: '65,000' },
-        { img: 'sale15.jpg', title: 'Noor Embroidered Gown - Champagne', oldPrice: '75,000', newPrice: '50,000' },  
-    ];
-     %>
-        
-        <% saleProducts.forEach(product => { %>
-        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
-            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
-                <img src="./img/<%= product.img %>" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-            </div>
-            <div class="tag flex items-center justify-between px-1 mt-2">
-                <h5 class="text-[0.6rem] font-semibold">Client Name</h5>
-                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
-            </div>
-            <h4 class="tracking-widest font-medium my-1 text-base"><%= product.title %></h4>
-            <div class="sale-price flex items-center gap-3">
-                <p class="font-semibold text-lg text-green-800">&#8377;<span><%= product.newPrice %></span></p>
-                <p class="text-sm text-gray-400 line-through">&#8377;<span><%= product.oldPrice %></span></p>
-            </div>
-            <a href="#" class="text-sm font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">
-                READY TO SHIP
-            </a>
-        </div>
-        <% }); %>
+    <div id="product-container" class="main grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-16">
+       
+          
     </div>
+    <script>
+         async function fetchProducts() {
+    try {
+        const responseP = await fetch("/get-sale"); // Fetch discounted products from API
+        const dataP = await responseP.json(); // Convert response to JSON
 
+        if (!dataP.length) return; // If no products, return
+
+        const productContainer = document.getElementById("product-container");
+        productContainer.innerHTML = ""; // Clear previous data
+
+        // Find the product with the highest discount
+        let bestSale = dataP.reduce((max, product) => 
+            product.discount > max.discount ? product : max, dataP[0]);
+
+        const bestDiscountedPrice = (bestSale.price - (bestSale.price * bestSale.discount / 100)).toFixed(2);
+
+        // Update "Sale of the Day" section
+        document.querySelector(".sale-details h4").textContent = bestSale.productName;
+        document.querySelector(".sale-details .sale-price p:first-child").innerHTML = `&#8377;${bestDiscountedPrice}`;
+        document.querySelector(".sale-details .sale-price p:last-child").innerHTML = `&#8377;${bestSale.price}`;
+        document.querySelector(".sale-details p.text-xs").textContent = bestSale.description || "Limited-time exclusive sale!";
+        document.querySelector(".sale-page img").src = bestSale.image.replace(/\\/g, '/');
+
+        // Fix the "Add to Cart" button
+        document.querySelector(".sale-details a").setAttribute("onclick", `addToCart('${bestSale._id}')`);
+
+        // Populate the product grid
+        dataP.forEach(product => {
+            const discountedPrice = (product.price - (product.price * product.discount / 100)).toFixed(2);
+
+            const productCard = `
+                <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+                    <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
+                        <img src="${product.image.replace(/\\/g, '/')}" alt="${product.productName}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                    </div>
+                    <div class="tag flex items-center justify-between px-1 mt-2">
+                        <h5 class="text-[0.6rem] font-[600]">${product.clientName}</h5>
+                        <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
+                    </div>
+                    <h4 class="tracking-widest font-[400] my-0.5 text-base">${product.productName}</h4>
+                    <div class="sale-price flex items-center gap-3">
+                        <p class="font-semibold text-lg text-green-800">&#8377;<span>${discountedPrice}</span></p>
+                        <p class="text-sm text-gray-400 line-through">&#8377;<span>${product.price}</span></p>
+                    </div>
+                    <a href="#" onclick="addToCart('${product._id}')" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">
+                        ADD TO CART
+                    </a>
+                </div>
+            `;
+
+            productContainer.innerHTML += productCard;
+        });
+
+    } catch (error) {
+        console.error("Error fetching discounted products:", error);
+    }
+}
+
+// Function to Add to Cart
+async function addToCart(productId) {
+    try {
+        const response = await fetch("/add-to-cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ productId })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert(data.message); // Show success message
+        } else {
+            alert(data.error); // Show error message
+        }
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
+}
+
+fetchProducts(); // Call function to load discounted products
+
+        async function addToCart(productId) {
+            try {
+                const response = await fetch("/add-to-cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ productId })
+                });
+    
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message); // Show success message
+                } else {
+                    alert(data.error); // Show error message
+                }
+            } catch (error) {
+                console.error("Error adding to cart:", error);
+            }
+        }
+    
+        fetchProducts(); // Call function to load sale products
+    </script>
+    
     <%-include('partials/appointment')%>
     <%-include('partials/footer')%>
     <script src="/js/script.js"></script>

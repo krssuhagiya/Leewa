@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<%-include('partials/head')%>
+<%- include('partials/head') %>
 <body class="px-6 sm:px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
-    <%-include('partials/topbar')%> 
-     <!-- Navbar -->
-     <div class="navbar flex w-full ml-7">
+    <%- include('partials/topbar') %> 
+    <div class="navbar flex w-full ml-7">
         <div class="navigation px-1 py-5 text-lg w-full">
             <div class="flex items-center justify-between">
                 <div class="nav-links flex items-center justify-center gap-7 text-base">
-                    <a href="/home">HOME</a>
+                    <a href="/">HOME</a>
                     <a href="/men">MEN</a>
                     <a href="/women">WOMEN</a>
                     <a href="/wedding">WEDDING</a>
@@ -20,49 +19,77 @@
             </div>
         </div> 
     </div>
-
     <!-- Bride Section -->
-    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-11">
+    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
         Grace and Glamour for the Modern Bride
     </h2>
 
-    <div class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <% let brideProducts = [
-        { img: 'bride1.jpg', title: 'Ava Embroidered Saree Set - Old Rose', price: '30,000' },
-        { img: 'bride2.jpg', title: 'Sahasra Gota Patti Silk Sharara - Black', price: '29,500' },
-        { img: 'bride3.jpg', title: 'Sawsan Embroidered Mul Tabard Set - White', price: '27,000' },
-        { img: 'bride4.jpg', title: 'Rowan Printed Kaftan - Sage', price: '22,900' },
-        { img: 'bride5.jpg', title: 'Moonlight Bloom Printed Silk Skirt Set - Blue', price: '25,000' },
-        { img: 'bride6.jpg', title: 'Silaam Printed Kaftan - Powder Blue', price: '20,500' },
-        { img: 'bride7.jpg', title: 'Aanya Handcrafted Lehenga - Blush Pink', price: '28,500' },
-        { img: 'bride8.jpg', title: 'Riona Silk Embroidered Gown - Ivory', price: '30,000' },
-        { img: 'bride9.jpg', title: 'Zehra Classic Anarkali Set - Maroon', price: '27,500' },
-        { img: 'bride10.jpg', title: 'Mehreen Organza Floral Saree - Peach', price: '18,500' },
-        { img: 'bride11.jpg', title: 'Noor Chikankari Sharara - Mint Green', price: '24,000' },
-        { img: 'bride12.jpg', title: 'Arisha Banarasi Brocade Lehenga - Gold', price: '29,000' },
-        { img: 'bride13.jpg', title: 'Haniya Classic Zardozi Saree - Red', price: '30,000' },
-        { img: 'bride14.jpg', title: 'Eshaal Hand-embroidered Sharara - Navy Blue', price: '26,500' },
-        { img: 'bride15.jpg', title: 'Nayra Regal Tulle Lehenga - Lavender', price: '28,000' }
-        ]; %>
-
-        <% brideProducts.forEach(product => { %>
-        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
-            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
-                <img src="./img/<%= product.img %>" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-            </div>
-            <div class="tag flex items-center justify-between px-1 mt-2">
-                <h5 class="text-[0.6rem] font-[600]">Bride Collection</h5>
-                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
-            </div>
-            <h4 class="tracking-widest font-[400] my-0.5 text-base"><%= product.title %></h4>
-            <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span><%= product.price %></span></p>
-            <a href="#" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">READY TO SHIP</a>
-        </div>
-        <% }); %>
+    <div id="product-container" class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Products will be injected dynamically here -->
     </div>
 
-    <%-include('partials/appointment')%>
-    <%-include('partials/footer')%>
+    <%- include('partials/appointment') %>
+    <%- include('partials/footer') %>
+
+    <script>
+        async function fetchProducts() {
+            try {
+                const responseP = await fetch("/get-product");
+                const dataP = await responseP.json();
+                const brideProducts = dataP.filter(product => product.category.categoryName === "bride");
+
+                const productContainer = document.getElementById("product-container");
+                productContainer.innerHTML = ""; // Clear previous data
+
+                brideProducts.forEach(product => {
+                    const productCard = `
+                        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+                            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
+                                <img src="${product.image.replace(/\\/g, '/')}" alt="${product.productName}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            </div>
+                            <div class="tag flex items-center justify-between px-1 mt-2">
+                                <h5 class="text-[0.6rem] font-[600]">${product.clientName}</h5>
+                                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
+                            </div>
+                            <h4 class="tracking-widest font-[400] my-0.5 text-base">${product.productName}</h4>
+                            <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>${product.price}</span></p>
+                            <a href="#" onclick="addToCart('${product._id}')" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">
+                                ADD TO CART
+                            </a>
+                        </div>
+                    `;
+
+                    productContainer.innerHTML += productCard;
+                });
+
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        }
+
+        async function addToCart(productId) {
+            try {
+                const response = await fetch("/add-to-cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message); // Show success message
+                } else {
+                    alert(data.error); // Show error message
+                }
+            } catch (error) {
+                console.error("Error adding to cart:", error);
+            }
+        }
+
+        fetchProducts(); // Call function to load products
+    </script>
     <script src="/js/script.js"></script>
 </body>
 </html>

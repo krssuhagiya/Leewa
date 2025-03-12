@@ -1,0 +1,30 @@
+/* theme.css */
+:root {
+    /* Color Palette */
+    --color-primary: #65350F; /* Rich Dark Brown (Logo, Navbar Text) */
+    --color-secondary: #8B5E3C; /* Medium Brown */
+    --color-background: #FAF8F0; /* Light Cream (Body Background) */
+    --color-surface: #FFFFFF; /* White (Navbar, Cards) */
+    --color-text: #1e1e19; /* Dark Text */
+    --color-sidebar: #AFE2E3; /* Cyan (Sidebar) */
+    --color-sidebar-hover: #86D2D3; /* Cyan-300 (Sidebar Hover) */
+    --color-accent: #D2B48C; /* Tan */
+    --color-highlight: #D4AF37; /* Gold */
+    --color-error: #FF6B6B; /* Soft Red */
+    --color-success: #4CAF50; /* Muted Green */
+  
+    /* Spacing */
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+  
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+    /* Borders */
+    --border-radius: 0.5rem;
+    --border-width: 1px;
+    --border-color: rgba(0, 0, 0, 0.1);
+}

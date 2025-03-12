@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+  <body class="tracking-wide bg-[var(--color-background)] text-[var(--color-text)] font-[Montserrat]">
+    <!-- Navbar -->
+    <%- include('partials/navbar') %>
+
+      <div class="main flex pt-20">
+        <!-- Sidebar -->
+        <%- include('partials/slidebar') %>
+
+          <!-- Products Section -->
+          <div class="right w-[82vw] bg-[var(--color-surface)] p-6">
+            <h1 class="text-3xl font-semibold mb-6">Products</h1>
+
+            <!-- Add/Edit Product Form -->
+            <div class="bg-[var(--color-surface)] shadow-[var(--shadow-md)] rounded-[var(--border-radius)] p-4 mb-6">
+              <h3 class="text-xl font-semibold mb-4" id="formTitle">
+                Add New Product
+              </h3>
+              <form id="productForm" class="flex flex-wrap gap-4" method="POST" action="/create-product"
+                enctype="multipart/form-data">
+                <input type="text" id="clientName" name="clientName" class="border p-2 w-1/3 rounded-md"
+                  placeholder="Enter client name" required />
+                <input type="text" id="productName" name="productName" class="border p-2 w-1/3 rounded-md"
+                  placeholder="Enter product name" required />
+
+                <select id="category" name="category" class="border p-2 w-1/3 rounded-md" required>
+                  <option value="" disabled selected>Select category</option>
+                  <% categories.forEach(cat=> { %>
+                    <option value="<%= cat.categoryName %>">
+                      <%= cat.categoryName %>
+                    </option>
+                    <% }); %>
+                </select>
+
+                <select id="gender" name="gender" class="border p-2 w-1/3 rounded-md" required>
+                  <option value="">Select Gender</option>
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                </select>
+
+                <input type="number" id="productPrice" name="price" class="border p-2 w-1/3 rounded-md"
+                  placeholder="Enter price" required />
+
+                <!-- New Discount Input Field -->
+                <input type="number" id="discount" name="discount" class="border p-2 w-1/3 rounded-md"
+                  placeholder="Enter discount (%)" min="0" max="100"  required />
+
+                <input type="file" id="productImage" accept="image/*" name="image" class="border p-2 w-1/3 rounded-md"
+                  required />
+                <input type="hidden" id="editProductId" />
+
+                <button type="submit"
+                  class="bg-[var(--color-secondary)] text-white px-4 py-2 rounded-md hover:bg-[var(--color-accent)]"
+                  id="submitButton">
+                  Add Product
+                </button>
+                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 hidden"
+                  id="cancelEdit" onclick="cancelEdit()">
+                  Cancel
+                </button>
+              </form>
+            </div>
+
+            <!-- Product List -->
+            <div class="products">
+              <h2 class="text-2xl font-bold mb-4">Product List</h2>
+              <div class="prod main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <% products.forEach((product)=> { %>
+                  <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+                    <img src="<%= product.image.replace(/\\/g, '/') %>" alt="<%= product.productName %>" />
+                    <div><strong>Client:</strong> <%= product.clientName %> </div>
+                    <div><strong>Product:</strong> <%= product.productName %> </div>
+                    <div><strong>Category:</strong> <%= product.category.categoryName %> </div>
+                    <div><strong>Original Price:</strong> $<%= product.price %> </div>
+                    
+                    <!-- Show Discount if Available -->
+                    <% if (product.discount > 0) { %>
+                      <div><strong>Discount:</strong> <%= product.discount %>%</div>
+                      <div><strong>Discounted Price:</strong> 
+                        $<%= (product.price - (product.price * product.discount / 100)).toFixed(2) %>
+                      </div>
+                    <% } %>
+
+                    <div class="btns flex items-center justify-between pt-3">
+                      <a href="/edit-product/<%= product._id %>" class="edit-btn bg-amber-300 px-4 py-1 rounded-md">Edit</a>
+                      <!-- Delete Button (With Confirmation) -->
+                      <form action="/delete-product/<%= product._id %>" method="POST"
+                        onsubmit="return confirm('Are you sure?');">
+                        <button type="submit" class="delete-btn bg-red-400 px-4 py-1 rounded-md cursor-pointer">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                  <% }) %>
+              </div>
+            </div>
+
+          </div>
+      </div>
+  </body>
+
+</html>

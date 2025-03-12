@@ -10,7 +10,7 @@
         Grace in Every Thread
     </h2>
 
-    <div class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div id="product-container" class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <% let womenProducts = [
              { img: 'women1.jpg', title: 'ARIA SKIRT SET - BLUSH', price: '20,000' },
     { img: 'women2.jpg', title: 'Sahasra Gota Patti Silk Sharara Set - Black', price: '19,500' },
@@ -49,13 +49,82 @@
             </div>
             <h4 class="tracking-widest font-[400] my-0.5 text-base"><%= product.title %></h4>
             <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span><%= product.price %></span></p>
-            <a href="#" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">READY TO SHIP</a>
+            <a href="#" id="addToCart" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">ADD TO CART</a>
         </div>
         <% }); %>
     </div>
 
     <%-include('partials/appointment')%>
     <%-include('partials/footer')%>
+    <script>
+      async function fetchProducts() {
+          try {
+              const responseP = await fetch("/get-product");
+              const dataP = await responseP.json();
+              const womenProducts = dataP.filter(product => product.gender === "Women");
+  
+              const productContainer = document.getElementById("product-container");
+              productContainer.innerHTML = ""; // Clear previous data
+  
+              womenProducts.forEach(product => {
+                  const productCard = `
+                      <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
+                          <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
+                              <img src="${product.image.replace(/\\/g, '/')}" alt="${product.productName}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                          </div>
+                          <div class="tag flex items-center justify-between px-1 mt-2">
+                              <h5 class="text-[0.6rem] font-[600]">${product.clientName}</h5>
+                              <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
+                          </div>
+                          <h4 class="tracking-widest font-[400] my-0.5 text-base">${product.productName}</h4>
+                          <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>${product.price}</span></p>
+                          <a href="#" class="addToCart text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition" data-id="${product._id}">
+                              ADD TO CART
+                          </a>
+                      </div>
+                  `;
+  
+                  productContainer.innerHTML += productCard;
+              });
+  
+              // Attach event listeners after elements are added
+              document.querySelectorAll(".addToCart").forEach(button => {
+                  button.addEventListener("click", function (event) {
+                      event.preventDefault();
+                      const productId = this.getAttribute("data-id");
+                      addToCart(productId);
+                  });
+              });
+  
+          } catch (error) {
+              console.error("Error fetching products:", error);
+          }
+      }
+  
+      async function addToCart(productId) {
+          try {
+              const response = await fetch("/add-to-cart", {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ productId })
+              });
+  
+              const data = await response.json();
+              if (response.ok) {
+                  alert(data.message); // Show success message
+              } else {
+                  alert(data.error); // Show error message
+              }
+          } catch (error) {
+              console.error("Error adding to cart:", error);
+          }
+      }
+  
+      fetchProducts(); // Call function to load products
+  </script>
+  
     <script src="/js/script.js"></script>
 </body>
 </html>
