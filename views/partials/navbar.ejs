@@ -1,63 +1,210 @@
 <!-- Navbar -->
-<div class="nav flex flex-col md:flex-row py-3 border-b border-gray-300 px-4 md:px-8">
+<nav class="relative bg-white border-b border-gray-100 z-50">
+    <!-- Main Navigation -->
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-20">
+            <!-- Left Side - Categories -->
+            <div class="relative group">
+                <button id="categories" class="flex items-center gap-2 px-6 py-2.5 bg-[#65350F] text-white rounded-lg group-hover:bg-[#7B4019] transition-colors duration-300">
+                    <i class="ri-menu-line"></i>
+                    <span class="font-medium">Categories</span>
+                    <i class="ri-arrow-down-s-line transition-transform duration-300 group-hover:rotate-180"></i>
+                </button>
+                
+                <!-- Categories Dropdown -->
+                <div id="categoryLink" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
+                    <div class="p-4 space-y-3" id="categoryContainer">
+                        <!-- Categories will be dynamically inserted here -->
+                        <div class="animate-pulse">
+                            <div class="h-4 bg-gray-200 rounded w-3/4 mb-3"></div>
+                            <div class="space-y-2">
+                                <div class="h-3 bg-gray-100 rounded w-1/2"></div>
+                                <div class="h-3 bg-gray-100 rounded w-2/3"></div>
+                                <div class="h-3 bg-gray-100 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <!-- Left (Categories) -->
-  <div class="left md:w-[23%]">
-    <div class="main-box">
-      <a id="categories" class="title flex items-center justify-between px-6 bg-[#65350F] py-4 font-medium text-lg text-white rounded-t-lg cursor-pointer">
-        <h6>Categories</h6>
-        <i class="ri-arrow-down-s-line transition-transform duration-300"></i>
-      </a>
-      <div id="categoryLink" class="category flex flex-col max-h-0 overflow-hidden transition-all duration-500 ease-in-out"> 
-      </div>
-    </div>
-  </div>
-  <!-- Right (Navigation + Slideshow) -->
-  <div class="right md:w-[77%] md:ml-7">
-
-    <!-- Navigation Links -->
-    <div class="navigation py-5 text-lg">
-      <div class="flex items-center justify-between">
-        <div class="nav flex items-center gap-7 text-base">
-          <a href="/" class="hover:text-[#65350F]">HOME</a>
-          <a href="/men" class="hover:text-[#65350F]">MEN</a>
-          <a href="/women" class="hover:text-[#65350F]">WOMEN</a>
-          <a href="/wedding" class="hover:text-[#65350F]">WEDDING</a>
-          <a href="/sale" class="hover:text-[#65350F]">SALE</a>
-        </div> 
-      </div>
-    </div>
-
-    <!-- Slideshow -->
-    <div class="relative w-full h-[410px] overflow-hidden rounded-lg">
-      <div id="slideshow" class="flex transition-transform duration-500 ease-in-out">
-        <div class="min-w-full h-[410px] relative">
-          <img src="/img/slideshow1.jpg" class="w-full h-full object-cover" alt="Slide 1" />
-          <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
-            <h4 class="text-lg uppercase font-medium mb-3">10% Off Your First Order</h4>
-            <h3 class="text-4xl font-semibold mb-4">Fashionable Dress</h3>
-            <a href="#" class="bg-white text-black py-2 px-4 rounded">Shop Now</a>
-          </div>
+            <!-- Center - Navigation Links -->
+            <div class="flex items-center space-x-8">
+                <a href="/" class="nav-link relative text-gray-700 hover:text-[#65350F] transition-colors duration-300">
+                    HOME
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D4AF37] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="/men" class="nav-link relative text-gray-700 hover:text-[#65350F] transition-colors duration-300">
+                    MEN
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D4AF37] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="/women" class="nav-link relative text-gray-700 hover:text-[#65350F] transition-colors duration-300">
+                    WOMEN
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D4AF37] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="/wedding" class="nav-link relative text-gray-700 hover:text-[#65350F] transition-colors duration-300">
+                    WEDDING
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D4AF37] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="/sale" class="relative px-4 py-2 text-white font-medium bg-gradient-to-r from-[#D4AF37] to-[#65350F] rounded-lg hover:shadow-lg transition-all duration-300 animate-pulse">
+                    SALE
+                </a>
+            </div>
+ 
         </div>
-
-        <div class="min-w-full h-[410px] relative">
-          <img src="/img/slideshow2.jpg" class="w-full h-full object-cover" alt="Slide 2" />
-          <div class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/50">
-            <h4 class="text-lg uppercase font-medium mb-3">10% Off Your First Order</h4>
-            <h3 class="text-4xl font-semibold mb-4">Reasonable Price</h3>
-            <a href="#" class="bg-white text-black py-2 px-4 rounded">Shop Now</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slideshow Buttons -->
-      <button id="prev" class="absolute left-12 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 cursor-pointer rounded-full">
-        <i class="ri-arrow-left-s-line text-2xl"></i>
-      </button>
-      <button id="next" class="absolute right-12 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 cursor-pointer rounded-full">
-        <i class="ri-arrow-right-s-line text-2xl"></i>
-      </button>
     </div>
+</nav>
 
-  </div>
-</div> 
+<style>
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #D4AF37;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+@keyframes gentle-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.animate-gentle-pulse {
+    animation: gentle-pulse 2s infinite;
+}
+
+/* Add these new styles for category animations */
+.category-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.category-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.category-group:hover .subcategory {
+    transform: translateX(5px);
+}
+
+.subcategory {
+    transition: transform 0.2s ease;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add active state to current page link
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('text-[#65350F]');
+            link.querySelector('span').classList.add('w-full');
+        }
+    });
+
+    // Fetch and render categories
+    fetchCategories();
+});
+
+async function fetchCategories() {
+    try {
+        const response = await fetch('/get-categories');
+        const categories = await response.json();
+        
+        if (!categories || categories.error) {
+            throw new Error('Failed to fetch categories');
+        }
+
+        renderCategories(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        document.getElementById('categoryContainer').innerHTML = `
+            <div class="text-center py-4 text-gray-500">
+                <i class="ri-error-warning-line text-2xl mb-2"></i>
+                <p>Unable to load categories</p>
+            </div>
+        `;
+    }
+}
+
+function renderCategories(categories) {
+    const container = document.getElementById('categoryContainer');
+    let html = '';
+
+    // Group categories by gender
+    const groupedCategories = categories.reduce((acc, cat) => {
+        if (!acc[cat.categoryGender]) {
+            acc[cat.categoryGender] = [];
+        }
+        acc[cat.categoryGender].push(cat);
+        return acc;
+    }, { "Men": [], "Women": [] });
+
+    // Generate HTML for each gender group
+    for (const [gender, cats] of Object.entries(groupedCategories)) {
+        if (cats.length > 0) {
+            html += `
+                <div class="category-group">
+                    <h3 class="font-medium text-[#65350F] mb-2">${gender}'s Collection</h3>
+                    <div class="space-y-2 pl-2">
+                        ${cats.map(cat => `
+                            <a href="/${gender.toLowerCase()}/${cat.categoryName.toLowerCase()}" 
+                               class="subcategory block text-gray-600 hover:text-[#D4AF37] transition-colors duration-200">
+                                <i class="ri-arrow-right-s-line inline-block"></i> ${cat.categoryName}
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Add Wedding Collection
+    html += `
+        <div class="category-group">
+            <h3 class="font-medium text-[#65350F] mb-2">Wedding Collection</h3>
+            <div class="space-y-2 pl-2">
+                <a href="/wedding/groom" class="subcategory block text-gray-600 hover:text-[#D4AF37] transition-colors duration-200">
+                    <i class="ri-arrow-right-s-line inline-block"></i> Groom Collection
+                </a>
+                <a href="/wedding/bride" class="subcategory block text-gray-600 hover:text-[#D4AF37] transition-colors duration-200">
+                    <i class="ri-arrow-right-s-line inline-block"></i> Bride Collection
+                </a>
+            </div>
+        </div>
+    `;
+
+    // Add sale section at the bottom
+    html += `
+        <a href="/sale" class="block mt-4 py-2 text-center text-white font-medium bg-gradient-to-r from-[#D4AF37] to-[#65350F] rounded-md hover:shadow-md transition-all duration-300">
+            View All Sale Items
+        </a>
+    `;
+
+    container.innerHTML = html;
+
+    // Add animation to categories
+    const categoryGroups = container.querySelectorAll('.category-group');
+    categoryGroups.forEach((group, index) => {
+        group.classList.add('category-enter');
+        setTimeout(() => {
+            group.classList.add('category-enter-active');
+        }, index * 100);
+    });
+}
+</script> 
