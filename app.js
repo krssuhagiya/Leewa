@@ -281,7 +281,7 @@ app.post("/login", async (req, res) => {
 
     // Redirect based on role
     if (user.role === 'admin') {
-      res.redirect('/cart');
+      res.redirect('/get-products');
     } else {
       res.redirect('/');
     }
@@ -446,8 +446,13 @@ app.post("/create-product", upload.single("image"), async (req, res) => {
     res.status(500).json({ message: "Server Error", error });
   }
 });
-app.get("/get-products", async (req, res) => {
+app.get("/get-products", auth, async (req, res) => {
   try {
+    // Check if user is admin
+    if (req.user.role !== 'admin') {
+      return res.redirect('/');
+    }
+    
     const products = await productModel.find().populate("category");
     const categories = await categoryModel.find();
     res.render("./backendviews/product", { products, categories });
