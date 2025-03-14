@@ -24,14 +24,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
 app.use(session({ secret: "secretkey", resave: false, saveUninitialized: true }));
-app.use(cartRoutes);
-app.use(adminRoutes);
 
-// Add middleware to include path in all renders
-app.use((req, res, next) => {
-  res.locals.path = req.path;
-  next();
-});
+// Protected routes should use auth middleware
+app.use('/orders', auth);
+app.use('/checkout', auth);
 
 // Add middleware to make user available to all views
 app.use(async (req, res, next) => {
@@ -40,12 +36,25 @@ app.use(async (req, res, next) => {
       const decoded = jwt.verify(req.cookies.token, 'shhh');
       const user = await userModel.findById(decoded.userid);
       res.locals.user = user;
+      req.user = user; // Also set req.user for compatibility
     } catch (error) {
       res.locals.user = null;
+      req.user = null;
     }
   } else {
     res.locals.user = null;
+    req.user = null;
   }
+  next();
+});
+
+// Mount cart routes
+app.use('/', cartRoutes);
+app.use('/', adminRoutes);
+
+// Add middleware to include path in all renders
+app.use((req, res, next) => {
+  res.locals.path = req.path;
   next();
 });
 
@@ -739,5 +748,13 @@ app.post("/remove-from-cart", async (req, res) => {
     }
 });
 
+app.get("/debug-auth", (req, res) => {
+  res.json({
+    hasToken: !!req.cookies.token,
+    token: req.cookies.token,
+    user: res.locals.user,
+    isAuthenticated: !!res.locals.user
+  });
+});
 
 app.listen(8080);
