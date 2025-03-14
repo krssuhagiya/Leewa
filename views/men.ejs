@@ -1,80 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 <%-include('partials/head')%>
-<body class="px-6 sm:px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
+<body class="tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
     <%-include('partials/topbar')%>
     <%-include('partials/navbar')%>
 
-    <!-- Men Section -->
-    <h2  class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
-        Elegance in Every Stitch
-    </h2>
+    <!-- Hero Section -->
+    <div class="relative min-h-screen w-full overflow-hidden bg-[#1a0f07]">
+        <!-- Loading Skeleton -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1a0f07] to-[#2a1f17] animate-pulse" id="hero-loading"></div>
 
-    <div id="product-container" class="main my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          
+        <!-- Main Hero Image -->
+        <div class="absolute inset-0 opacity-0 transition-opacity duration-700" id="hero-image-container">
+            <img src="/images/men-hero1.jpg" 
+                 alt="Men's Collection" 
+                 class="w-full h-full object-cover"
+                 loading="eager"
+                 decoding="async"
+                 onload="this.parentElement.classList.add('opacity-100'); document.getElementById('hero-loading').style.display = 'none';"
+                 onerror="this.onerror=null; this.parentElement.classList.add('opacity-100'); document.getElementById('hero-loading').style.display = 'none'; this.src='/images/placeholder.png'">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative container mx-auto px-4 h-screen flex items-center">
+            <div class="max-w-2xl space-y-8 animate-fadeIn">
+                <!-- Animated Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                    <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+                    <span class="text-white/90 text-sm font-medium">New Collection 2024</span>
+                </div>
+
+                <!-- Main Heading with Stagger Animation -->
+                <h1 class="text-7xl font-bold text-white space-y-4 opacity-0 animate-slideUp" style="animation-delay: 300ms;">
+                    <span class="block transform hover:translate-x-2 transition-transform duration-300">Redefining</span>
+                    <span class="block text-[#D4AF37] transform hover:translate-x-2 transition-transform duration-300 delay-100">Modern</span>
+                    <span class="block transform hover:translate-x-2 transition-transform duration-300 delay-200">Elegance</span>
+                </h1>
+
+                <!-- Description with Fade Animation -->
+                <p class="text-lg text-white/80 max-w-xl opacity-0 animate-fadeIn" style="animation-delay: 600ms;">
+                    Discover our curated collection of premium menswear that combines timeless tradition with contemporary sophistication.
+                </p>
+
+                <!-- CTA Buttons with Slide Animation -->
+                <div class="flex flex-wrap gap-6 pt-4 opacity-0 animate-slideUp" style="animation-delay: 900ms;">
+                    <a href="#product-container" class="group relative px-8 py-4 bg-[#D4AF37] text-black rounded-xl overflow-hidden">
+                        <span class="relative z-10 font-medium">Explore Collection</span>
+                        <div class="absolute inset-0 bg-white transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                    </a>
+                    <a href="#" class="group px-8 py-4 border border-white/30 text-white rounded-xl hover:bg-white/10 transition-colors duration-300">
+                        Book Appointment
+                    </a>
+                </div>
+
+                <!-- Stats with Stagger Animation -->
+                <div class="grid grid-cols-3 gap-8 pt-12 opacity-0 animate-fadeIn" style="animation-delay: 1200ms;">
+                    <div class="text-white">
+                        <div class="text-3xl font-bold text-[#D4AF37]">500+</div>
+                        <div class="text-sm text-white/70">Unique Designs</div>
+                    </div>
+                    <div class="text-white">
+                        <div class="text-3xl font-bold text-[#D4AF37]">50+</div>
+                        <div class="text-sm text-white/70">Categories</div>
+                    </div>
+                    <div class="text-white">
+                        <div class="text-3xl font-bold text-[#D4AF37]">24/7</div>
+                        <div class="text-sm text-white/70">Support</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Category Cards with Stagger Animation -->
+            <div class="absolute right-4 lg:right-20 top-1/2 -translate-y-1/2 space-y-6 hidden lg:block">
+                <div class="group w-64 bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer hover:bg-white/20 transition-all duration-300 opacity-0 animate-slideLeft" style="animation-delay: 300ms;" onclick="filterByCategory('kurta')">
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-[#D4AF37] transition-colors">Kurta Collection</h3>
+                    <p class="text-white/70 text-sm">Explore traditional & fusion kurtas</p>
+                </div>
+                <div class="group w-64 bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer hover:bg-white/20 transition-all duration-300 opacity-0 animate-slideLeft" style="animation-delay: 500ms;" onclick="filterByCategory('sherwani')">
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-[#D4AF37] transition-colors">Sherwani Collection</h3>
+                    <p class="text-white/70 text-sm">Discover royal sherwanis</p>
+                </div>
+                <div class="group w-64 bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer hover:bg-white/20 transition-all duration-300 opacity-0 animate-slideLeft" style="animation-delay: 700ms;" onclick="filterByCategory('suit')">
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-[#D4AF37] transition-colors">Indo-Western</h3>
+                    <p class="text-white/70 text-sm">Modern fusion wear</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 opacity-0 animate-fadeIn" style="animation-delay: 1500ms;">
+            <span class="text-sm">Scroll to Explore</span>
+            <div class="w-px h-8 bg-white/20 relative">
+                <div class="absolute top-0 w-full h-1/3 bg-white/50 animate-scrollDown"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter and Products Section -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center justify-between mb-8">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <select id="sort-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#65350F]">
+                    <option value="">Sort By</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="newest">Newest First</option>
+                </select>
+                <select id="category-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#65350F]">
+                    <option value="">All Categories</option>
+                    <option value="kurta">Kurtas</option>
+                    <option value="sherwani">Sherwanis</option>
+                    <option value="suit">Indo-Western</option>
+                </select>
+                <select id="price-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#65350F]">
+                    <option value="">Price Range</option>
+                    <option value="under-1000">Under ₹1,000</option>
+                    <option value="1000-3000">₹1,000 - ₹3,000</option>
+                    <option value="3000-plus">Above ₹3,000</option>
+                </select>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="text-sm text-gray-600">View:</span>
+                <button class="p-2 hover:bg-gray-100 rounded-lg" id="grid-view">
+                    <i class="ri-grid-fill text-xl"></i>
+                </button>
+                <button class="p-2 hover:bg-gray-100 rounded-lg" id="list-view">
+                    <i class="ri-list-check text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        </div>
     </div>
 
     <%-include('partials/appointment')%>
     <%-include('partials/footer')%>
+    <script src="/js/like.js"></script>
     <script>
+        let allProducts = [];
+        
         async function fetchProducts() {
-  try {
-    const responseP = await fetch("/get-product");
-    const dataP = await responseP.json();
-    const menProducts = dataP.filter(product => product.gender === "Men");
+            try {
+                const responseP = await fetch("/get-product");
+                const dataP = await responseP.json();
+                // Filter products for men's category
+                allProducts = dataP.filter(product => 
+                    product.gender === "Men" || // Check gender field
+                    (product.category && 
+                    product.category.categoryName && 
+                    (product.category.categoryName.toLowerCase().includes('men') ||
+                     product.category.categoryName.toLowerCase().includes('kurta') ||
+                     product.category.categoryName.toLowerCase().includes('sherwani')))
+                );
+                
+                if (allProducts.length === 0) {
+                    const productContainer = document.getElementById("product-container");
+                    productContainer.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <i class="ri-shopping-bag-line text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-xl text-gray-500">No products found. Please check back later.</p>
+                        </div>
+                    `;
+                    return;
+                }
 
-    const productContainer = document.getElementById("product-container");
-    productContainer.innerHTML = ""; // Clear previous data
+                renderProducts(allProducts);
+                
+                // Initialize like status for all products
+                const heartIcons = document.querySelectorAll('[data-product-id]');
+                heartIcons.forEach(icon => {
+                    const productId = icon.getAttribute('data-product-id');
+                    checkLikeStatus(productId);
+                });
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                const productContainer = document.getElementById("product-container");
+                productContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="ri-error-warning-line text-6xl text-red-300 mb-4"></i>
+                        <p class="text-xl text-gray-500">Error loading products. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
 
-    menProducts.forEach(product => {
-      const productCard = `
-        <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
-            <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
-                <img src="${product.image.replace(/\\/g, '/')}" alt="${product.productName}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-            </div>
-            <div class="tag flex items-center justify-between px-1 mt-2">
-                <h5 class="text-[0.6rem] font-[600]">${product.clientName}</h5>
-                <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
-            </div>
-            <h4 class="tracking-widest font-[400] my-0.5 text-base">${product.productName}</h4>
-            <p class="font-light tracking-widest mt-2 mb-1">&#8377;<span>${product.price}</span></p>
-            <a href="#" onclick="addToCart('${product._id}')" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">
-                ADD TO CART
-            </a>
-        </div>
-      `;
+        function renderProducts(products) {
+            const productContainer = document.getElementById("product-container");
+            productContainer.innerHTML = "";
 
-      productContainer.innerHTML += productCard;
-    });
+            if (products.length === 0) {
+                productContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="ri-shopping-bag-line text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-xl text-gray-500">No products found matching your criteria</p>
+                    </div>
+                `;
+                return;
+            }
 
-  } catch (error) {
-    console.error("Error fetching products:", error);
-  }
-}
+            products.forEach(product => {
+                const discountedPrice = product.discount > 0 
+                    ? Math.round(product.price * (1 - product.discount/100))
+                    : product.price;
 
-        async function addToCart(productId) {
-    try {
-        const response = await fetch("/add-to-cart", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ productId })
+                const productCard = `
+                    <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-[#D4AF37]/10">
+                        <div class="relative aspect-[3/4] overflow-hidden">
+                            <img src="${product.image.replace(/\\/g, '/')}" 
+                                 alt="${product.productName}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='/images/placeholder.png'">
+                            <button 
+                                onclick="toggleLike('${product._id}')"
+                                class="absolute top-4 right-4 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 transform hover:scale-110 transition-all"
+                            >
+                                <i class="ri-heart-line text-2xl cursor-pointer hover:text-[#65350F] transition-colors" data-product-id="${product._id}"></i>
+                            </button>
+                            ${product.discount > 0 ? `
+                                <div class="absolute top-4 left-4 bg-[#65350F] text-white px-3 py-1 rounded-full text-sm font-medium border border-[#D4AF37]">
+                                    ${product.discount}% OFF
+                                </div>
+                            ` : ''}
+                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button 
+                                    onclick="addToCart('${product._id}')"
+                                    class="w-full bg-white text-[#65350F] font-medium px-4 py-2 rounded-lg hover:bg-[#65350F] hover:text-white transition-colors"
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2 line-clamp-2">${product.productName}</h3>
+                            <p class="text-gray-600 text-sm mb-3">${product.clientName}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="space-x-2">
+                                    ${product.discount > 0 ? `
+                                        <span class="text-gray-500 line-through text-sm">₹${product.price}</span>
+                                        <span class="text-xl font-bold text-[#65350F]">₹${discountedPrice}</span>
+                                    ` : `
+                                        <span class="text-xl font-bold text-[#65350F]">₹${product.price}</span>
+                                    `}
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="ri-star-fill text-[#D4AF37]"></i>
+                                    <span class="text-sm font-medium">4.5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                productContainer.innerHTML += productCard;
+            });
+        }
+
+        function applyFilters() {
+            let filteredProducts = [...allProducts];
+
+            // Apply sort filter
+            const sortFilter = document.getElementById('sort-filter').value;
+            if (sortFilter) {
+                switch (sortFilter) {
+                    case 'price-low':
+                        filteredProducts.sort((a, b) => {
+                            const priceA = a.discount > 0 ? a.price * (1 - a.discount/100) : a.price;
+                            const priceB = b.discount > 0 ? b.price * (1 - b.discount/100) : b.price;
+                            return priceA - priceB;
+                        });
+                        break;
+                    case 'price-high':
+                        filteredProducts.sort((a, b) => {
+                            const priceA = a.discount > 0 ? a.price * (1 - a.discount/100) : a.price;
+                            const priceB = b.discount > 0 ? b.price * (1 - b.discount/100) : b.price;
+                            return priceB - priceA;
+                        });
+                        break;
+                    case 'newest':
+                        filteredProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                        break;
+                }
+            }
+
+            // Apply category filter
+            const categoryFilter = document.getElementById('category-filter').value;
+            if (categoryFilter) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category && 
+                    product.category.categoryName && 
+                    product.category.categoryName.toLowerCase().includes(categoryFilter.toLowerCase())
+                );
+            }
+
+            // Apply price filter
+            const priceFilter = document.getElementById('price-filter').value;
+            if (priceFilter) {
+                switch (priceFilter) {
+                    case 'under-1000':
+                        filteredProducts = filteredProducts.filter(product => {
+                            const finalPrice = product.discount > 0 
+                                ? product.price * (1 - product.discount/100) 
+                                : product.price;
+                            return finalPrice < 1000;
+                        });
+                        break;
+                    case '1000-3000':
+                        filteredProducts = filteredProducts.filter(product => {
+                            const finalPrice = product.discount > 0 
+                                ? product.price * (1 - product.discount/100) 
+                                : product.price;
+                            return finalPrice >= 1000 && finalPrice <= 3000;
+                        });
+                        break;
+                    case '3000-plus':
+                        filteredProducts = filteredProducts.filter(product => {
+                            const finalPrice = product.discount > 0 
+                                ? product.price * (1 - product.discount/100) 
+                                : product.price;
+                            return finalPrice > 3000;
+                        });
+                        break;
+                }
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        function filterByCategory(category) {
+            document.getElementById('category-filter').value = category;
+            applyFilters();
+            document.getElementById('product-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Event listeners for filters
+        document.getElementById('sort-filter').addEventListener('change', applyFilters);
+        document.getElementById('category-filter').addEventListener('change', applyFilters);
+        document.getElementById('price-filter').addEventListener('change', applyFilters);
+
+        // View toggle functionality
+        document.getElementById('grid-view').addEventListener('click', function() {
+            document.getElementById('product-container').classList.remove('grid-cols-1');
+            document.getElementById('product-container').classList.add('md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
         });
 
-        const data = await response.json();
-        if (response.ok) {
-            alert(data.message); // Show success message
-        } else {
-            alert(data.error); // Show error message
-        }
-    } catch (error) {
-        console.error("Error adding to cart:", error);
-    }
-}
+        document.getElementById('list-view').addEventListener('click', function() {
+            document.getElementById('product-container').classList.remove('md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
+            document.getElementById('product-container').classList.add('grid-cols-1');
+        });
 
-        fetchProducts(); // Call function to load products
-      </script>
+        async function addToCart(productId) {
+            try {
+                const response = await fetch("/add-to-cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error("Error adding to cart:", error);
+            }
+        }
+
+        fetchProducts(); // Initial load
+    </script>
     <script src="/js/script.js"></script>
 </body>
 </html>
+
+<style>
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideLeft {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .animate-slideUp {
+        animation: slideUp 0.8s ease-out forwards;
+    }
+
+    .animate-slideLeft {
+        animation: slideLeft 0.8s ease-out forwards;
+    }
+
+    .animate-fadeIn {
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+</style>

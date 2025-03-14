@@ -13,6 +13,7 @@ const multer = require("multer");
 const mongoose = require("mongoose");
 const cartRoutes = require("./routes/cart");
 const adminRoutes = require("./routes/admin"); // Admin Panel
+const auth = require("./middleware/auth");
 
 const session = require("express-session");
 
@@ -26,6 +27,27 @@ app.use(session({ secret: "secretkey", resave: false, saveUninitialized: true })
 app.use(cartRoutes);
 app.use(adminRoutes);
 
+// Add middleware to include path in all renders
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
+
+// Add middleware to make user available to all views
+app.use(async (req, res, next) => {
+  if (req.cookies.token) {
+    try {
+      const decoded = jwt.verify(req.cookies.token, 'shhh');
+      const user = await userModel.findById(decoded.userid);
+      res.locals.user = user;
+    } catch (error) {
+      res.locals.user = null;
+    }
+  } else {
+    res.locals.user = null;
+  }
+  next();
+});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -43,7 +65,7 @@ app.get("/", (req, res) => {
 });
 app.get("/men", async (req, res) => {
   try {
-    const products = await productModel.find({ gender: "Men" }); // Fetch men’s products from DB
+    const products = await productModel.find({ gender: "Men" }); // Fetch men's products from DB
     res.render("men", { products }); // Pass products to the EJS template
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -53,7 +75,7 @@ app.get("/men", async (req, res) => {
 
 app.get("/women", async (req, res) => {
   try {
-    const products = await productModel.find({ gender: "Women" }); // Fetch men’s products from DB
+    const products = await productModel.find({ gender: "Women" }); // Fetch men's products from DB
     res.render("Women", { products }); // Pass products to the EJS template
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -73,10 +95,16 @@ app.get("/sale", (req, res) => {
   res.render("sale");
 });
 app.get("/login", (req, res) => {
-  res.render("login");
+  if (req.cookies.token) {
+    return res.redirect('/');
+  }
+  res.render("login", { error: null, user: res.locals.user });
 });
 app.get("/signup", (req, res) => {
-  res.render("signup");
+  if (req.cookies.token) {
+    return res.redirect('/');
+  }
+  res.render("signup", { error: null, user: res.locals.user });
 });
 app.get("/admin/dashboard", (req, res) => {
   res.render("./backendviews/dashboard");
@@ -150,65 +178,133 @@ app.get("/category/:category", async (req, res) => {
   }
 });
 
-// login
-app.post("/create-user", async (req, res) => {
+// Authentication Routes
+app.post("/signup", async (req, res) => {
   try {
-    let { username, email, password } = req.body;
+    const { username, email, password, confirmPassword } = req.body;
+
+    // Validation
+    if (!username || !email || !password || !confirmPassword) {
+      return res.render("signup", { error: "All fields are required", user: res.locals.user });
+    }
+
+    if (password !== confirmPassword) {
+      return res.render("signup", { error: "Passwords do not match", user: res.locals.user });
+    }
 
     // Check if user already exists
-    let flag = await userModel.findOne({ email });
-    if (flag) return res.status(400).send("User already registered");
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.render("signup", { error: "Email already registered", user: res.locals.user });
+    }
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user
-    let user = await userModel.create({
+    // Create user with explicit role
+    const user = await userModel.create({
       username,
       email,
-      password: hash,
+      password: hashedPassword,
+      role: 'user'  // Explicitly set role to 'user'
     });
 
-    // Generate token
-    let token = jwt.sign({ email: email, userid: user._id }, "shhh", {
-      expiresIn: "1h",
+    // Generate JWT token
+    const token = jwt.sign(
+      { userid: user._id, email: user.email },
+      'shhh',
+      { expiresIn: '24h' }
+    );
+
+    // Set cookie and redirect
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 
-    // // Set cookie
-    res.cookie("token", token, { httpOnly: true, secure: true });
-
-    res.status(201).redirect("/");
+    res.redirect('/');
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Server error");
+    console.error('Signup error:', error);
+    res.render("signup", { error: "Error creating account", user: res.locals.user });
   }
 });
+
 app.post("/login", async (req, res) => {
   try {
-    let { email, password } = req.body;
-    // Check if user exists
-    let user = await userModel.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not registered" });
-    if (user.role === "admin") return res.redirect("/admin");
+    const { email, password } = req.body;
 
-    // Compare passwords
+    // Validation
+    if (!email || !password) {
+      return res.render("login", { error: "All fields are required", user: res.locals.user });
+    }
+
+    // Find user
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.render("login", { error: "Invalid credentials", user: res.locals.user });
+    }
+
+    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(401).json({ message: "Invalid credentials" });
+    if (!isMatch) {
+      return res.render("login", { error: "Invalid credentials", user: res.locals.user });
+    }
 
-    // Generate token
-    let token = jwt.sign({ email: user.email, userid: user._id }, "shhh", {
-      expiresIn: "1h",
+    // Update last login
+    user.lastLogin = new Date();
+    await user.save();
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userid: user._id, email: user.email },
+      'shhh',
+      { expiresIn: '24h' }
+    );
+
+    // Set cookie and redirect
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 
-    // Set cookie
-    res.cookie("token", token, { httpOnly: true, secure: true });
-
-    res.status(200).redirect("/");
+    // Redirect based on role
+    if (user.role === 'admin') {
+      res.redirect('/cart');
+    } else {
+      res.redirect('/');
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Login error:', error);
+    res.render("login", { error: "Error logging in", user: res.locals.user });
+  }
+});
+
+// Logout route
+app.get("/logout", (req, res) => {
+  res.clearCookie('token');
+  res.redirect('/login');
+});
+
+// Protected Routes Middleware
+const protectRoute = (req, res, next) => {
+  if (!req.cookies.token) {
+    return res.redirect('/login');
+  }
+  next();
+};
+
+// Apply protection to routes that require authentication
+app.get("/profile", protectRoute, async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, 'shhh');
+    const user = await userModel.findById(decoded.userid);
+    res.render("profile", { user });
+  } catch (error) {
+    res.redirect('/login');
   }
 });
 
@@ -430,7 +526,218 @@ app.get("/get-order", async (req, res) => {
   }
 });
 
+app.get("/search", async (req, res) => {
+  try {
+    const searchQuery = req.query.q;
+    const category = req.query.category;
+    const gender = req.query.gender;
+    const minPrice = parseFloat(req.query.minPrice) || 0;
+    const maxPrice = parseFloat(req.query.maxPrice) || Number.MAX_VALUE;
 
+    if (!searchQuery && !category && !gender) {
+      return res.json([]);
+    }
+
+    // Build the search query
+    let searchCriteria = {};
+
+    if (searchQuery) {
+      searchCriteria.$or = [
+        { productName: { $regex: searchQuery, $options: 'i' } },
+        { clientName: { $regex: searchQuery, $options: 'i' } },
+        { description: { $regex: searchQuery, $options: 'i' } }
+      ];
+    }
+
+    if (category) {
+      searchCriteria.category = category;
+    }
+
+    if (gender) {
+      searchCriteria.gender = gender;
+    }
+
+    searchCriteria.price = {
+      $gte: minPrice,
+      $lte: maxPrice
+    };
+
+    // Search products with all criteria
+    const products = await productModel.find(searchCriteria)
+      .populate('category')
+      .sort({ price: 1 }); // Sort by price ascending
+
+    res.json(products);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ error: "Error searching products" });
+  }
+});
+
+app.get("/product/:id", async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id).populate("category");
+    res.render("product", { product }); 
+  } catch (error) {
+    res.status(500).send("Error fetching product");
+  }
+});
+
+// Update the isLoggedIn middleware to use our auth middleware
+const isLoggedIn = auth;
+
+// Route to toggle like status
+app.post('/toggle-like', auth, async (req, res) => {
+    try {
+        const { productId } = req.body;
+        const userId = req.user._id;
+
+        // Validate productId
+        if (!productId) {
+            return res.status(400).json({ error: 'Product ID is required' });
+        }
+
+        // Find user
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check if product exists
+        const product = await productModel.findById(productId);
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        // Check if product is already liked
+        const isLiked = user.likedProducts.includes(productId);
+
+        if (isLiked) {
+            // Remove from liked products
+            user.likedProducts = user.likedProducts.filter(id => id.toString() !== productId);
+        } else {
+            // Add to liked products
+            user.likedProducts.push(productId);
+        }
+
+        await user.save();
+
+        res.json({ 
+            success: true, 
+            message: isLiked ? 'Product removed from wishlist' : 'Product added to wishlist',
+            isLiked: !isLiked
+        });
+    } catch (error) {
+        console.error('Error toggling like:', error);
+        res.status(500).json({ error: 'Failed to update wishlist', details: error.message });
+    }
+});
+
+// Route to get liked products
+app.get('/get-liked-products', auth, async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user._id).populate('likedProducts');
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user.likedProducts);
+    } catch (error) {
+        console.error('Error fetching liked products:', error);
+        res.status(500).json({ error: 'Failed to fetch liked products' });
+    }
+});
+
+// Route to render liked products page
+app.get("/liked", auth, async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user._id).populate('likedProducts');
+        res.render("liked", { likedProducts: user.likedProducts });
+    } catch (error) {
+        console.error('Error fetching liked products:', error);
+        res.status(500).send('Error fetching liked products');
+    }
+});
+
+app.post("/add-to-cart", async (req, res) => {
+    try {
+        const { productId } = req.body;
+        const product = await productModel.findById(productId);
+        
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        // Initialize cart if it doesn't exist
+        if (!req.session.cart) {
+            req.session.cart = [];
+        }
+
+        // Check if product already exists in cart
+        const existingItem = req.session.cart.find(item => item.productId.toString() === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            req.session.cart.push({
+                productId,
+                quantity: 1,
+                product: product
+            });
+        }
+
+        res.json({ 
+            success: true, 
+            message: "Product added to cart",
+            cartCount: req.session.cart.length
+        });
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+        res.status(500).json({ error: "Failed to add to cart" });
+    }
+});
+
+app.post("/update-cart", async (req, res) => {
+    try {
+        const { productId, action } = req.body;
+        
+        if (!req.session.cart) {
+            return res.redirect("/cart");
+        }
+
+        const item = req.session.cart.find(item => item.productId.toString() === productId);
+        
+        if (item) {
+            if (action === "increase") {
+                item.quantity += 1;
+            } else if (action === "decrease") {
+                item.quantity -= 1;
+                if (item.quantity < 1) {
+                    req.session.cart = req.session.cart.filter(i => i.productId.toString() !== productId);
+                }
+            }
+        }
+
+        res.redirect("/cart");
+    } catch (error) {
+        console.error("Error updating cart:", error);
+        res.status(500).send("Error updating cart");
+    }
+});
+
+app.post("/remove-from-cart", async (req, res) => {
+    try {
+        const { productId } = req.body;
+        
+        if (req.session.cart) {
+            req.session.cart = req.session.cart.filter(item => item.productId.toString() !== productId);
+        }
+
+        res.redirect("/cart");
+    } catch (error) {
+        console.error("Error removing from cart:", error);
+        res.status(500).send("Error removing from cart");
+    }
+});
 
 
 app.listen(8080);

@@ -1,131 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <%-include('partials/head')%>
-<body class="px-6 sm:px-16 tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
+<body class="tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
     <%-include('partials/topbar')%>
     <%-include('partials/navbar')%>
-    
-    <!-- Sale Section -->
-    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28 mb-16">
-        Big Savings, Bigger Style!
-    </h2>
 
-    <!-- Sale of the Day -->
-    <h3 class="text-xl text-center mb-6">Sale Of The Day</h3>
-    <div class="sale-page flex flex-col lg:flex-row gap-6 items-center justify-center w-full mb-16">
-        <!-- Image Container -->
-        <div class="w-full lg:w-1/3 h-[70vh] bg-amber-100 overflow-hidden">
-            <img src="./img/saleshow2.jpg" alt="Sale Item" class="w-full h-full object-cover" />
+    <!-- Hero Section -->
+    <div class="relative min-h-screen w-full overflow-hidden bg-[#1a0f07]">
+        <!-- Loading Skeleton -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1a0f07] to-[#2a1f17] animate-pulse" id="hero-loading"></div>
+
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
         </div>
-        
-        <!-- Sale Details -->
-        <div class="sale-details w-full lg:w-1/3 text-center lg:text-left">
-            <h5 class="text-sm font-semibold">Client Name</h5>
-            <h4 class="tracking-widest font-medium text-2xl my-2">
-                Farhin Aari Embroidered Suit Set - Ivory
-            </h4>
-            <div class="sale-price flex justify-center lg:justify-start gap-4 items-center">
-                <p class="font-semibold text-2xl text-green-800">&#8377;95,000</p>
-                <p class="text-xl text-amber-700 line-through">&#8377;190,000</p>
-            </div> 
-            <p class="text-xs mt-6">
-                Inspired by palatial gardens, Farhin is crafted for daytime celebrations. Meticulously designed aari embroidery blends beautifully with the ivory tone and elegant silhouette of this ensemble.
-            </p>
-            <div class="cart flex w-full items-center justify-center lg:justify-start mt-4">
-                <a href="#" onclick="addToCart(bestSale._id)" class="text-sm font-bold border border-black py-2 px-4 inline-block mt-3 hover:bg-black hover:text-white transition">
-                    ADD TO CART
-                </a> 
+
+        <!-- Decorative Circles -->
+        <div class="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-[#D4AF37]/20 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-bl from-[#65350F]/30 to-transparent rounded-full blur-3xl"></div>
+
+        <!-- Main Hero Image -->
+        <div class="absolute inset-0 opacity-0 transition-opacity duration-700" id="hero-image-container">
+            <img src="/images/sale-hero.jpg" 
+                 alt="Sale Collection" 
+                 class="w-full h-full object-cover"
+                 loading="eager"
+                 decoding="async"
+                 onload="this.parentElement.classList.add('opacity-100'); document.getElementById('hero-loading').style.display = 'none';"
+                 onerror="this.onerror=null; this.parentElement.classList.add('opacity-100'); document.getElementById('hero-loading').style.display = 'none'; this.src='/images/placeholder.png'">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+        </div>
+
+        <!-- Sale Content -->
+        <div class="relative container mx-auto px-4 h-screen flex items-center">
+            <div class="max-w-2xl space-y-8">
+                <!-- Animated Sale Badge -->
+                <div class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#D4AF37] backdrop-blur-sm opacity-0 animate-fadeIn" style="animation-delay: 200ms;">
+                    <span class="w-3 h-3 rounded-full bg-white animate-pulse"></span>
+                    <span class="text-[#1a0f07] text-lg font-bold">EXCLUSIVE SALE</span>
+                </div>
+
+                <!-- Main Sale Heading -->
+                <div class="space-y-4">
+                    <h1 class="text-5xl lg:text-6xl font-bold">
+                        <span class="text-white block opacity-0 animate-slideUp" style="animation-delay: 400ms;">Season's</span>
+                        <div class="text-[#D4AF37] mt-2 opacity-0 animate-slideUp" style="animation-delay: 600ms;">Biggest Sale</div>
+                        <div class="bg-gradient-to-r from-[#D4AF37] to-[#FFF5D4] text-transparent bg-clip-text mt-2 opacity-0 animate-slideUp" style="animation-delay: 800ms;">
+                            <span class="inline-block animate-bounce" style="animation-delay: 0ms;">U</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 100ms;">P</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 200ms;">T</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 300ms;">O</span>
+                            <span class="inline-block px-2"></span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 400ms;">5</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 500ms;">0</span>
+                            <span class="inline-block animate-bounce" style="animation-delay: 600ms;">%</span>
+                        </div>
+                    </h1>
+                    <p class="text-lg text-white/80 max-w-xl opacity-0 animate-fadeIn" style="animation-delay: 1000ms;">
+                        Discover exclusive deals on our finest collection of ethnic wear and accessories.
+                    </p>
+                </div>
+
+                <!-- Sale Categories -->
+                <div class="grid grid-cols-3 gap-6 pt-8">
+                    <div class="text-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#D4AF37]/20 opacity-0 animate-slideUp" style="animation-delay: 1200ms;">
+                        <div class="text-2xl font-bold text-[#D4AF37]">₹999</div>
+                        <div class="text-sm text-white/70">Starts From</div>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#D4AF37]/20 opacity-0 animate-slideUp" style="animation-delay: 1400ms;">
+                        <div class="text-2xl font-bold text-[#D4AF37]">100+</div>
+                        <div class="text-sm text-white/70">Styles</div>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-[#D4AF37]/20 opacity-0 animate-slideUp" style="animation-delay: 1600ms;">
+                        <div class="text-2xl font-bold text-[#D4AF37]">24/7</div>
+                        <div class="text-sm text-white/70">Support</div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-6 pt-8 opacity-0 animate-fadeIn" style="animation-delay: 1800ms;">
+                    <a href="#product-container" class="group relative px-8 py-4 bg-[#D4AF37] text-[#1a0f07] rounded-xl overflow-hidden text-lg font-medium hover:bg-[#FFF5D4] transition-all duration-300 hover:scale-105">
+                        Shop Now
+                    </a>
+                    <a href="#" class="group px-8 py-4 border-2 border-[#D4AF37] text-[#D4AF37] rounded-xl text-lg font-medium hover:bg-[#D4AF37] hover:text-[#1a0f07] transition-all duration-300 hover:scale-105">
+                        View All Deals
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating Sale Categories -->
+            <div class="absolute right-4 lg:right-20 top-1/2 -translate-y-1/2 space-y-6 hidden lg:block">
+                <div class="group w-64 bg-white/5 backdrop-blur-sm rounded-2xl p-6 cursor-pointer hover:bg-white/10 transition-all duration-300 opacity-0 animate-slideLeft" style="animation-delay: 1200ms;">
+                    <h3 class="text-lg font-bold text-[#D4AF37] mb-2 group-hover:scale-110 transition-transform">Flash Sale</h3>
+                    <p class="text-white/70 text-xs">Up to 50% off on selected items</p>
+                </div>
+                <div class="group w-64 bg-white/5 backdrop-blur-sm rounded-2xl p-6 cursor-pointer hover:bg-white/10 transition-all duration-300 opacity-0 animate-slideLeft" style="animation-delay: 1400ms;">
+                    <h3 class="text-lg font-bold text-[#D4AF37] mb-2 group-hover:scale-110 transition-transform">Clearance</h3>
+                    <p class="text-white/70 text-xs">Additional 10% off on sale items</p>
+                </div>
+                <div class="group w-64 bg-white/5 backdrop-blur-sm rounded-2xl p-6 cursor-pointer hover:bg-white/10 transition-all duration-300 opacity-0 animate-slideLeft" style="animation-delay: 1600ms;">
+                    <h3 class="text-lg font-bold text-[#D4AF37] mb-2 group-hover:scale-110 transition-transform">Bundle Deals</h3>
+                    <p class="text-white/70 text-xs">Buy more, save more</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 opacity-0 animate-fadeIn" style="animation-delay: 2000ms;">
+            <span class="text-sm">Scroll to Explore</span>
+            <div class="w-px h-8 bg-white/20 relative">
+                <div class="absolute top-0 w-full h-1/3 bg-[#D4AF37] animate-scrollDown"></div>
             </div>
         </div>
     </div>
 
-    <!-- Sale Items Grid -->
-    <div id="product-container" class="main grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-16">
-       
-          
+    <!-- Filter and Products Section -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center justify-between mb-8">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <select id="sort-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <option value="">Sort By</option>
+                    <option value="discount-high">Highest Discount</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+                <select id="discount-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <option value="">Discount</option>
+                    <option value="50-plus">50% & Above</option>
+                    <option value="40-plus">40% & Above</option>
+                    <option value="30-plus">30% & Above</option>
+                </select>
+                <select id="price-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <option value="">Price Range</option>
+                    <option value="under-1000">Under ₹1,000</option>
+                    <option value="1000-3000">₹1,000 - ₹3,000</option>
+                    <option value="3000-plus">Above ₹3,000</option>
+                </select>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="text-sm text-gray-600">View:</span>
+                <button class="p-2 hover:bg-gray-100 rounded-lg" id="grid-view">
+                    <i class="ri-grid-fill text-xl"></i>
+                </button>
+                <button class="p-2 hover:bg-gray-100 rounded-lg" id="list-view">
+                    <i class="ri-list-check text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        </div>
     </div>
+
+    <%-include('partials/appointment')%>
+    <%-include('partials/footer')%>
+    <script src="/js/like.js"></script>
     <script>
-         async function fetchProducts() {
-    try {
-        const responseP = await fetch("/get-sale"); // Fetch discounted products from API
-        const dataP = await responseP.json(); // Convert response to JSON
+        let allProducts = [];
+        
+        async function fetchProducts() {
+            try {
+                const responseP = await fetch("/get-product");
+                const dataP = await responseP.json();
+                // Filter products with discounts
+                allProducts = dataP.filter(product => product.discount > 0);
+                
+                if (allProducts.length === 0) {
+                    const productContainer = document.getElementById("product-container");
+                    productContainer.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <i class="ri-shopping-bag-line text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-xl text-gray-500">No sale products found. Please check back later.</p>
+                        </div>
+                    `;
+                    return;
+                }
 
-        if (!dataP.length) return; // If no products, return
-
-        const productContainer = document.getElementById("product-container");
-        productContainer.innerHTML = ""; // Clear previous data
-
-        // Find the product with the highest discount
-        let bestSale = dataP.reduce((max, product) => 
-            product.discount > max.discount ? product : max, dataP[0]);
-
-        const bestDiscountedPrice = (bestSale.price - (bestSale.price * bestSale.discount / 100)).toFixed(2);
-
-        // Update "Sale of the Day" section
-        document.querySelector(".sale-details h4").textContent = bestSale.productName;
-        document.querySelector(".sale-details .sale-price p:first-child").innerHTML = `&#8377;${bestDiscountedPrice}`;
-        document.querySelector(".sale-details .sale-price p:last-child").innerHTML = `&#8377;${bestSale.price}`;
-        document.querySelector(".sale-details p.text-xs").textContent = bestSale.description || "Limited-time exclusive sale!";
-        document.querySelector(".sale-page img").src = bestSale.image.replace(/\\/g, '/');
-
-        // Fix the "Add to Cart" button
-        document.querySelector(".sale-details a").setAttribute("onclick", `addToCart('${bestSale._id}')`);
-
-        // Populate the product grid
-        dataP.forEach(product => {
-            const discountedPrice = (product.price - (product.price * product.discount / 100)).toFixed(2);
-
-            const productCard = `
-                <div class="card w-full p-4 shadow-md hover:shadow-lg transition duration-300">
-                    <div class="img h-[67vh] w-full overflow-hidden bg-gray-200">
-                        <img src="${product.image.replace(/\\/g, '/')}" alt="${product.productName}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                // Sort by highest discount by default
+                allProducts.sort((a, b) => b.discount - a.discount);
+                renderProducts(allProducts);
+                
+                // Initialize like status for all products
+                const heartIcons = document.querySelectorAll('[data-product-id]');
+                heartIcons.forEach(icon => {
+                    const productId = icon.getAttribute('data-product-id');
+                    checkLikeStatus(productId);
+                });
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                const productContainer = document.getElementById("product-container");
+                productContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="ri-error-warning-line text-6xl text-red-300 mb-4"></i>
+                        <p class="text-xl text-gray-500">Error loading products. Please try again later.</p>
                     </div>
-                    <div class="tag flex items-center justify-between px-1 mt-2">
-                        <h5 class="text-[0.6rem] font-[600]">${product.clientName}</h5>
-                        <i class="ri-heart-2-line text-xl cursor-pointer hover:text-red-500"></i>
-                    </div>
-                    <h4 class="tracking-widest font-[400] my-0.5 text-base">${product.productName}</h4>
-                    <div class="sale-price flex items-center gap-3">
-                        <p class="font-semibold text-lg text-green-800">&#8377;<span>${discountedPrice}</span></p>
-                        <p class="text-sm text-gray-400 line-through">&#8377;<span>${product.price}</span></p>
-                    </div>
-                    <a href="#" onclick="addToCart('${product._id}')" class="text-[0.6rem] font-bold border border-black py-1.5 px-2.5 inline-block mt-2 hover:bg-black hover:text-white transition">
-                        ADD TO CART
-                    </a>
-                </div>
-            `;
-
-            productContainer.innerHTML += productCard;
-        });
-
-    } catch (error) {
-        console.error("Error fetching discounted products:", error);
-    }
-}
-
-// Function to Add to Cart
-async function addToCart(productId) {
-    try {
-        const response = await fetch("/add-to-cart", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ productId })
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert(data.message); // Show success message
-        } else {
-            alert(data.error); // Show error message
+                `;
+            }
         }
-    } catch (error) {
-        console.error("Error adding to cart:", error);
-    }
-}
 
-fetchProducts(); // Call function to load discounted products
+        function renderProducts(products) {
+            const productContainer = document.getElementById("product-container");
+            productContainer.innerHTML = "";
+
+            if (products.length === 0) {
+                productContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="ri-shopping-bag-line text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-xl text-gray-500">No products found matching your criteria</p>
+                    </div>
+                `;
+                return;
+            }
+
+            products.forEach(product => {
+                const discountedPrice = Math.round(product.price * (1 - product.discount/100));
+
+                const productCard = `
+                    <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-red-100">
+                        <div class="relative aspect-[3/4] overflow-hidden">
+                            <img src="${product.image.replace(/\\/g, '/')}" 
+                                 alt="${product.productName}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='/images/placeholder.png'">
+                            <button 
+                                onclick="toggleLike('${product._id}')"
+                                class="absolute top-4 right-4 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 transform hover:scale-110 transition-all"
+                            >
+                                <i class="ri-heart-line text-2xl cursor-pointer hover:text-red-500 transition-colors" data-product-id="${product._id}"></i>
+                            </button>
+                            <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium border border-white/50">
+                                ${product.discount}% OFF
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button 
+                                    onclick="addToCart('${product._id}')"
+                                    class="w-full bg-white text-red-500 font-medium px-4 py-2 rounded-lg hover:bg-red-500 hover:text-white transition-colors"
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2 line-clamp-2">${product.productName}</h3>
+                            <p class="text-gray-600 text-sm mb-3">${product.clientName}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="space-x-2">
+                                    <span class="text-gray-500 line-through text-sm">₹${product.price}</span>
+                                    <span class="text-xl font-bold text-red-500">₹${discountedPrice}</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="ri-star-fill text-yellow-400"></i>
+                                    <span class="text-sm font-medium">4.5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                productContainer.innerHTML += productCard;
+            });
+        }
+
+        function applyFilters() {
+            let filteredProducts = [...allProducts];
+
+            // Apply sort filter
+            const sortFilter = document.getElementById('sort-filter').value;
+            if (sortFilter) {
+                switch (sortFilter) {
+                    case 'discount-high':
+                        filteredProducts.sort((a, b) => b.discount - a.discount);
+                        break;
+                    case 'price-low':
+                        filteredProducts.sort((a, b) => {
+                            const priceA = a.price * (1 - a.discount/100);
+                            const priceB = b.price * (1 - b.discount/100);
+                            return priceA - priceB;
+                        });
+                        break;
+                    case 'price-high':
+                        filteredProducts.sort((a, b) => {
+                            const priceA = a.price * (1 - a.discount/100);
+                            const priceB = b.price * (1 - b.discount/100);
+                            return priceB - priceA;
+                        });
+                        break;
+                }
+            }
+
+            // Apply discount filter
+            const discountFilter = document.getElementById('discount-filter').value;
+            if (discountFilter) {
+                switch (discountFilter) {
+                    case '50-plus':
+                        filteredProducts = filteredProducts.filter(product => product.discount >= 50);
+                        break;
+                    case '40-plus':
+                        filteredProducts = filteredProducts.filter(product => product.discount >= 40);
+                        break;
+                    case '30-plus':
+                        filteredProducts = filteredProducts.filter(product => product.discount >= 30);
+                        break;
+                }
+            }
+
+            // Apply price filter
+            const priceFilter = document.getElementById('price-filter').value;
+            if (priceFilter) {
+                switch (priceFilter) {
+                    case 'under-1000':
+                        filteredProducts = filteredProducts.filter(product => {
+                            const finalPrice = product.price * (1 - product.discount/100);
+                            return finalPrice < 1000;
+                        });
+                        break;
+                    case '1000-3000':
+                        filteredProducts = filteredProducts.filter(product => {
+                            const finalPrice = product.price * (1 - product.discount/100);
+                            return finalPrice >= 1000 && finalPrice <= 3000;
+                        });
+                        break;
+                    case '3000-plus':
+                        filteredProducts = filteredProducts.filter(product => {
+                            const finalPrice = product.price * (1 - product.discount/100);
+                            return finalPrice > 3000;
+                        });
+                        break;
+                }
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        // Event listeners for filters
+        document.getElementById('sort-filter').addEventListener('change', applyFilters);
+        document.getElementById('discount-filter').addEventListener('change', applyFilters);
+        document.getElementById('price-filter').addEventListener('change', applyFilters);
+
+        // View toggle functionality
+        document.getElementById('grid-view').addEventListener('click', function() {
+            document.getElementById('product-container').classList.remove('grid-cols-1');
+            document.getElementById('product-container').classList.add('md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
+        });
+
+        document.getElementById('list-view').addEventListener('click', function() {
+            document.getElementById('product-container').classList.remove('md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
+            document.getElementById('product-container').classList.add('grid-cols-1');
+        });
 
         async function addToCart(productId) {
             try {
@@ -136,23 +360,90 @@ fetchProducts(); // Call function to load discounted products
                     },
                     body: JSON.stringify({ productId })
                 });
-    
+
                 const data = await response.json();
                 if (response.ok) {
-                    alert(data.message); // Show success message
+                    alert(data.message);
                 } else {
-                    alert(data.error); // Show error message
+                    alert(data.error);
                 }
             } catch (error) {
                 console.error("Error adding to cart:", error);
             }
         }
-    
-        fetchProducts(); // Call function to load sale products
+
+        fetchProducts(); // Initial load
     </script>
-    
-    <%-include('partials/appointment')%>
-    <%-include('partials/footer')%>
-    <script src="/js/script.js"></script>
+
+    <style>
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes scrollDown {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(32px);
+            }
+        }
+
+        .animate-slideUp {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .animate-slideLeft {
+            animation: slideLeft 0.8s ease-out forwards;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        .animate-scrollDown {
+            animation: scrollDown 1.5s ease-in-out infinite;
+        }
+    </style>
 </body>
 </html>
