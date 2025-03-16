@@ -170,6 +170,8 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
+
+// category
 app.get("/category/:category", async (req, res) => {
   try {
     let category = req.params.category;

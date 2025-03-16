@@ -27,6 +27,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.warn("Slideshow navigation buttons not found!");
     }
 
+    // Make "Shop Now" buttons functional in slideshow
+    const shopNowButtons = document.querySelectorAll('#slideshow a');
+    if (shopNowButtons.length > 0) {
+      shopNowButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Redirect to products page
+          window.location.href = '/men'; // You can change this to any products page
+        });
+      });
+    }
+
     setInterval(() => showSlide(index + 1), 6000);
 
     // Category List Functionality
@@ -40,67 +52,76 @@ document.addEventListener("DOMContentLoaded", async function () {
       throw new Error("Category elements missing in DOM!");
     }
 
+    // Keep track of whether categories are loaded
+    let categoriesLoaded = false;
+
     async function fetchCategories() {
-      try {
-        const response = await fetch("/get-categories");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-
-        if (!Array.isArray(data)) {
-          throw new Error("Invalid category data format!");
-        }
-
-        // Populate categories
-        categoryList.innerHTML = "";
-        data.forEach((cat) => {
-          if (!cat._id || !cat.categoryName) {
-            console.warn("Skipping invalid category data:", cat);
-            return;
+      // Only fetch if not loaded yet
+      if (!categoriesLoaded) {
+        try {
+          const response = await fetch("/get-categories");
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
           }
-          const _categoryLink = document.createElement("a");
-          _categoryLink.href = `/category/${cat._id}`;
-          _categoryLink.classList.add(
-            "border",
-            "border-gray-300",
-            "px-6",
-            "py-2",
-            "hover:bg-gray-100"
-          );
-          _categoryLink.textContent = cat.categoryName;
-          categoryList.appendChild(_categoryLink);
-        });
+          const data = await response.json();
 
-        // Make categories visible by default
-        categoryList.style.maxHeight = categoryList.scrollHeight + "px";
-        icon.style.transform = "rotate(180deg)";
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+          if (!Array.isArray(data)) {
+            throw new Error("Invalid category data format!");
+          }
+
+          // Populate categories
+          categoryList.innerHTML = "";
+          data.forEach((cat) => {
+            if (!cat._id || !cat.categoryName) {
+              console.warn("Skipping invalid category data:", cat);
+              return;
+            }
+            const _categoryLink = document.createElement("a");
+            _categoryLink.href = `/category/${cat._id}`;
+            _categoryLink.classList.add(
+              "border",
+              "border-gray-300",
+              "px-6",
+              "py-2",
+              "hover:bg-gray-100"
+            );
+            _categoryLink.textContent = cat.categoryName;
+            categoryList.appendChild(_categoryLink);
+          });
+          
+          categoriesLoaded = true;
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
       }
     }
 
-    await fetchCategories(); // Fetch categories when the page loads
+    // Fetch categories when the page loads
+    await fetchCategories();
 
-    categoryContainer.addEventListener("click", async function () {
-      try {
-        await fetchCategories(); // Fetch categories again on click
-      } catch (error) {
-        console.error("Error updating categories on click:", error);
-      }
+    // Fix: Store the state of the toggle
+    let isCategoryOpen = true; // Default to open
 
+    // Make the dropdown visible by default
+    categoryList.style.maxHeight = categoryList.scrollHeight + "px";
+    icon.style.transform = "rotate(180deg)";
+
+    categoryContainer.addEventListener("click", function (event) {
       // Toggle category visibility
-      if (categoryList.style.maxHeight) {
+      if (isCategoryOpen) {
         categoryList.style.maxHeight = null;
         icon.style.transform = "rotate(0deg)";
       } else {
         categoryList.style.maxHeight = categoryList.scrollHeight + "px";
         icon.style.transform = "rotate(180deg)";
       }
+      
+      // Update the state
+      isCategoryOpen = !isCategoryOpen;
+      
+      // Prevent the click from triggering a navigation
+      event.preventDefault();
     });
-
-     
-   
   } catch (error) {
     console.error("Critical error in DOMContentLoaded:", error);
   }

@@ -1,312 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <%-include('partials/head')%>
-<body class="tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat] ">
+<body class="tracking-wide bg-[#FAF8F0] text-[#1e1e19] font-[Montserrat]">
     <%-include('partials/topbar')%>
     <%-include('partials/navbar')%>
 
-    <!-- Hero Section -->
-    <div class="relative min-h-[90vh] w-full overflow-hidden bg-[#1a0f07]">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-        </div>
+    <!-- Wedding Section -->
+    <h2 class="text-2xl font-semibold tracking-wide text-gray-800 text-center mt-28">
+        Eternal Elegance, Timeless Love
+    </h2>
 
-        <!-- Decorative Circles -->
-        <div class="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-[#D4AF37]/20 to-transparent rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-bl from-[#65350F]/30 to-transparent rounded-full blur-3xl"></div>
-
-        <!-- Hero Content -->
-        <div class="relative container mx-auto px-4 py-16 flex flex-col lg:flex-row items-center justify-between gap-12 z-10">
-            <!-- Left Content -->
-            <div class="flex-1 text-center lg:text-left max-w-2xl">
-                <div class="inline-block mb-8">
-                    <div class="flex items-center gap-3 bg-gradient-to-r from-[#D4AF37] to-[#FFF5D4] p-1 rounded-full">
-                        <span class="bg-[#1a0f07] text-[#D4AF37] text-sm font-bold px-4 py-1 rounded-full">WEDDING</span>
-                        <span class="text-[#1a0f07] font-bold pr-4">COLLECTION</span>
-                    </div>
-                </div>
-                
-                <h1 class="text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight">
-                    Timeless<br/>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#FFF5D4]">Wedding Elegance</span>
-                </h1>
-                
-                <p class="text-lg text-gray-300 mb-12 max-w-xl">Curated ensembles that capture the magic of your special day, where every detail tells your unique love story.</p>
-                
-                <div class="flex flex-wrap gap-6 justify-center lg:justify-start">
-                    <a href="#product-container" class="group relative inline-flex items-center px-8 py-3 overflow-hidden bg-gradient-to-r from-[#D4AF37] to-[#FFF5D4] rounded-full transition-transform hover:scale-105">
-                        <span class="relative z-10 text-[#1a0f07] font-medium">Shop Collection</span>
-                    </a>
-                    <a href="#" class="group relative inline-flex items-center px-8 py-3 overflow-hidden border-2 border-[#D4AF37] rounded-full hover:bg-[#D4AF37]/10 transition-colors">
-                        <span class="text-[#D4AF37] font-medium group-hover:text-[#FFF5D4]">Book Consultation</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right Content - Categories -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8">
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:border-[#D4AF37]/30 transition-colors group cursor-pointer" onclick="filterByCategory('bridal')">
-                    <div class="text-2xl font-bold text-[#D4AF37] group-hover:scale-110 transition-transform mb-2">Bridal Collection</div>
-                    <div class="text-white/80">Elegant bridal wear</div>
-                </div>
-                
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:border-[#D4AF37]/30 transition-colors group cursor-pointer" onclick="filterByCategory('groom')">
-                    <div class="text-2xl font-bold text-[#D4AF37] group-hover:scale-110 transition-transform mb-2">Groom Collection</div>
-                    <div class="text-white/80">Sophisticated groom wear</div>
-                </div>
-                
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:border-[#D4AF37]/30 transition-colors group cursor-pointer" onclick="filterByCategory('family')">
-                    <div class="text-2xl font-bold text-[#D4AF37] group-hover:scale-110 transition-transform mb-2">Family Collection</div>
-                    <div class="text-white/80">Complete family ensembles</div>
-                </div>
+    <!-- Explore Section -->
+    <div class="explore flex flex-col md:flex-row w-screen mt-5">
+        <!-- Bride Section -->
+        <div class="relative w-full md:w-1/2 h-[100vh] overflow-hidden group">
+            <img src="./img/bridel.webp" alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center">
+                <h2 class="text-3xl font-bold uppercase">For the Bride</h2>
+                <p class="text-lg mt-2 cursor-pointer hover:underline"><a href="/bride">Explore</a></p>
             </div>
         </div>
 
-        <!-- Bottom Gradient -->
-        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF8F0] to-transparent"></div>
+        <!-- Groom Section -->
+        <div class="relative w-full md:w-1/2 h-[100vh] overflow-hidden group">
+            <img src="./img/groom.webp" alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center">
+                <h2 class="text-3xl font-bold uppercase">For the Groom</h2>
+                <p class="text-lg mt-2 cursor-pointer hover:underline"><a href="/groom">Explore</a></p>
+            </div>
+        </div>
     </div>
 
-    <!-- Filter and Products Section -->
-    <div class="container mx-auto px-4 py-12">
-        <!-- Filters -->
-        <div class="flex flex-wrap items-center justify-between mb-8">
-            <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                <select id="sort-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#65350F]">
-                    <option value="">Sort By</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="newest">Newest First</option>
-                </select>
-                <select id="category-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#65350F]">
-                    <option value="">All Categories</option>
-                    <option value="bridal">Bridal</option>
-                    <option value="groom">Groom</option>
-                    <option value="family">Family</option>
-                    <option value="accessories">Accessories</option>
-                </select>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="text-sm text-gray-600">View:</span>
-                <button class="p-2 hover:bg-gray-100 rounded-lg" id="grid-view">
-                    <i class="ri-grid-fill text-xl"></i>
-                </button>
-                <button class="p-2 hover:bg-gray-100 rounded-lg" id="list-view">
-                    <i class="ri-list-check text-xl"></i>
-                </button>
-            </div>
-        </div>
+    <!-- Categories Section -->
+    <div class="categories tracking-widest my-16">
+        <h2 class="text-center text-3xl pb-4">SHOP BY CATEGORY</h2>
+        <div class="category grid grid-cols-2 md:grid-cols-4 gap-6 px-24">
+            <% let categories = [
+                { img: 'cat1.jpg', name: 'SAREES' },
+                { img: 'cat2.jpg', name: 'LEHENGA SETS' },
+                { img: 'cat3.jpg', name: 'KURTA SET' },
+                { img: 'cat4.jpg', name: 'MENS KURTA' }
+            ]; %>
 
-        <!-- Products Grid -->
-        <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <% categories.forEach(category => { %>
+            <div class="card h-[55vh] w-[80%] md:w-[17vw] text-center transition">
+                <img src="./img/<%= category.img %>" alt="<%= category.name %>" class="w-full h-[95%] object-cover transition-transform duration-300 hover:scale-105">
+                <p class="text-xs py-2"><%= category.name %></p>
+            </div>
+            <% }); %>
         </div>
     </div>
 
     <%-include('partials/appointment')%>
     <%-include('partials/footer')%>
-    <script src="/js/like.js"></script>
-    <script>
-        let allProducts = [];
-        
-        async function fetchProducts() {
-            try {
-                const responseP = await fetch("/get-product");
-                const dataP = await responseP.json();
-                // Filter products for wedding category
-                allProducts = dataP.filter(product => 
-                    product.category && 
-                    product.category.categoryName && 
-                    (product.category.categoryName.toLowerCase().includes('wedding') ||
-                     product.category.categoryName.toLowerCase().includes('bridal') ||
-                     product.category.categoryName.toLowerCase().includes('groom'))
-                );
-                
-                if (allProducts.length === 0) {
-                    const productContainer = document.getElementById("product-container");
-                    productContainer.innerHTML = `
-                        <div class="col-span-full text-center py-12">
-                            <i class="ri-shopping-bag-line text-6xl text-gray-300 mb-4"></i>
-                            <p class="text-xl text-gray-500">No wedding collection products found. Please check back later.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                renderProducts(allProducts);
-                
-                // Initialize like status for all products
-                const heartIcons = document.querySelectorAll('[data-product-id]');
-                heartIcons.forEach(icon => {
-                    const productId = icon.getAttribute('data-product-id');
-                    checkLikeStatus(productId);
-                });
-            } catch (error) {
-                console.error("Error fetching products:", error);
-                const productContainer = document.getElementById("product-container");
-                productContainer.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <i class="ri-error-warning-line text-6xl text-red-300 mb-4"></i>
-                        <p class="text-xl text-gray-500">Error loading products. Please try again later.</p>
-                    </div>
-                `;
-            }
-        }
-
-        function renderProducts(products) {
-            const productContainer = document.getElementById("product-container");
-            productContainer.innerHTML = "";
-
-            if (products.length === 0) {
-                productContainer.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <i class="ri-shopping-bag-line text-6xl text-gray-300 mb-4"></i>
-                        <p class="text-xl text-gray-500">No products found matching your criteria</p>
-                    </div>
-                `;
-                return;
-            }
-
-            products.forEach(product => {
-                const discountedPrice = product.discount > 0 
-                    ? Math.round(product.price * (1 - product.discount/100))
-                    : product.price;
-
-                const productCard = `
-                    <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-[#D4AF37]/10">
-                        <div class="relative aspect-[3/4] overflow-hidden">
-                            <img src="${product.image.replace(/\\/g, '/')}" 
-                                 alt="${product.productName}" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='/images/placeholder.png'">
-                            <button 
-                                onclick="toggleLike('${product._id}')"
-                                class="absolute top-4 right-4 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow-md hover:bg-gray-100 transform hover:scale-110 transition-all"
-                            >
-                                <i class="ri-heart-line text-2xl cursor-pointer hover:text-[#65350F] transition-colors" data-product-id="${product._id}"></i>
-                            </button>
-                            ${product.discount > 0 ? `
-                                <div class="absolute top-4 left-4 bg-[#65350F] text-white px-3 py-1 rounded-full text-sm font-medium border border-[#D4AF37]">
-                                    ${product.discount}% OFF
-                                </div>
-                            ` : ''}
-                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button 
-                                    onclick="addToCart('${product._id}')"
-                                    class="w-full bg-white text-[#65350F] font-medium px-4 py-2 rounded-lg hover:bg-[#65350F] hover:text-white transition-colors"
-                                >
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold mb-2 line-clamp-2">${product.productName}</h3>
-                            <p class="text-gray-600 text-sm mb-3">${product.clientName}</p>
-                            <div class="flex items-center justify-between">
-                                <div class="space-x-2">
-                                    ${product.discount > 0 ? `
-                                        <span class="text-gray-500 line-through text-sm">₹${product.price}</span>
-                                        <span class="text-xl font-bold text-[#65350F]">₹${discountedPrice}</span>
-                                    ` : `
-                                        <span class="text-xl font-bold text-[#65350F]">₹${product.price}</span>
-                                    `}
-                                </div>
-                                <div class="flex items-center space-x-1">
-                                    <i class="ri-star-fill text-[#D4AF37]"></i>
-                                    <span class="text-sm font-medium">4.5</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                productContainer.innerHTML += productCard;
-            });
-        }
-
-        function applyFilters() {
-            let filteredProducts = [...allProducts];
-
-            // Apply sort filter
-            const sortFilter = document.getElementById('sort-filter').value;
-            if (sortFilter) {
-                switch (sortFilter) {
-                    case 'price-low':
-                        filteredProducts.sort((a, b) => {
-                            const priceA = a.discount > 0 ? a.price * (1 - a.discount/100) : a.price;
-                            const priceB = b.discount > 0 ? b.price * (1 - b.discount/100) : b.price;
-                            return priceA - priceB;
-                        });
-                        break;
-                    case 'price-high':
-                        filteredProducts.sort((a, b) => {
-                            const priceA = a.discount > 0 ? a.price * (1 - a.discount/100) : a.price;
-                            const priceB = b.discount > 0 ? b.price * (1 - b.discount/100) : b.price;
-                            return priceB - priceA;
-                        });
-                        break;
-                    case 'newest':
-                        filteredProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                        break;
-                }
-            }
-
-            // Apply category filter
-            const categoryFilter = document.getElementById('category-filter').value;
-            if (categoryFilter) {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category && 
-                    product.category.categoryName && 
-                    product.category.categoryName.toLowerCase().includes(categoryFilter.toLowerCase())
-                );
-            }
-
-            renderProducts(filteredProducts);
-        }
-
-        function filterByCategory(category) {
-            document.getElementById('category-filter').value = category;
-            applyFilters();
-            document.getElementById('product-container').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Event listeners for filters
-        document.getElementById('sort-filter').addEventListener('change', applyFilters);
-        document.getElementById('category-filter').addEventListener('change', applyFilters);
-
-        // View toggle functionality
-        document.getElementById('grid-view').addEventListener('click', function() {
-            document.getElementById('product-container').classList.remove('grid-cols-1');
-            document.getElementById('product-container').classList.add('md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
-        });
-
-        document.getElementById('list-view').addEventListener('click', function() {
-            document.getElementById('product-container').classList.remove('md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
-            document.getElementById('product-container').classList.add('grid-cols-1');
-        });
-
-        async function addToCart(productId) {
-            try {
-                const response = await fetch("/add-to-cart", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ productId })
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    alert(data.message);
-                } else {
-                    alert(data.error);
-                }
-            } catch (error) {
-                console.error("Error adding to cart:", error);
-            }
-        }
-
-        fetchProducts(); // Initial load
-    </script>
     <script src="/js/script.js"></script>
 </body>
 </html>
