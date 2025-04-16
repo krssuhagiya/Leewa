@@ -2,12 +2,15 @@
 <div class="top flex flex-wrap justify-between items-center py-3 border-b border-gray-300 px-4 md:px-8">
 
   <!-- Left (Logo) -->
-  <div class="left flex items-center gap-1">
+   <a href="/">
+    <div class="left flex items-center gap-1">
     <span class="text-4xl font-bold text-[#65350F]  border-gray-300 flex items-center justify-center w-14 h-14">
       &#x269B;
     </span>
     <h2 class="text-3xl font-semibold">Leewa</h2>
   </div>
+   </a>
+  
 
   <!-- Middle (Search Bar) -->
   <div class="middle relative flex-1 max-w-2xl mx-4">
@@ -17,6 +20,8 @@
         id="searchInput"
         placeholder="Search for products..." 
         class="flex-grow px-4 py-2 outline-none w-full"
+        autocomplete="off"
+        value=""
       />
       <button class="px-6 py-2 bg-[#65350F] text-white hover:bg-[#4a2610] transition-colors duration-300 flex items-center justify-center">
         <i class="ri-search-2-line text-lg"></i>

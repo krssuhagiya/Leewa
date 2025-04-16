@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/Leewa");
+const mongoose = require("mongoose"); 
 const categorySchema = new mongoose.Schema({
   categoryName: {
     type: String,

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -15,6 +16,8 @@ const cartRoutes = require("./routes/cart");
 const adminRoutes = require("./routes/admin"); // Admin Panel
 const auth = require("./middleware/auth");
 
+const connectDB = require('./models/db');
+connectDB()
 const session = require("express-session");
 
 app.use(bodyParser.json());
@@ -170,6 +173,27 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
+// Search API endpoint
+app.get("/api/search", async (req, res) => {
+  try {
+    const query = req.query.q;
+    if (!query) {
+      return res.json([]);
+    }
+
+    const products = await productModel.find({
+      $or: [
+        { productName: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } }
+      ]
+    }).limit(10);
+
+    res.json(products);
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // category
 app.get("/category/:category", async (req, res) => {
@@ -406,40 +430,30 @@ app.get("/get-product", async (req, res) => {
  
 app.post("/create-product", upload.single("image"), async (req, res) => {
   try {
-    const { clientName, productName, category, price, gender, discount } =
-      req.body;
+    const { productName, category, price, gender, discount } = req.body;
     const image = req.file ? req.file.path : null; // Get image path
 
     // Validate required fields
     if (
-      !clientName ||
       !productName ||
       !category ||
       !price ||
       !image ||
-      !gender ||
-      !discount
+      !gender
     ) {
       return res
         .status(400)
         .json({ message: "All fields including image are required" });
     }
 
-    // Find the category by name to get the correct ObjectId
-    const categoryDoc = await categoryModel.findOne({ categoryName: category });
-    if (!categoryDoc) {
-      return res.status(400).json({ message: "Invalid category selected" });
-    }
-
-    // Create a new product with the correct category ObjectId
+    // Create a new product with the category ID directly
     const product = await productModel.create({
-      clientName,
       productName,
-      category: categoryDoc._id, // Store ObjectId instead of string
+      category, // This is already the category ID from the form
       price,
       image,
       gender,
-      discount,
+      discount: discount || 0,
     });
 
     res.status(201).redirect("/get-products");
@@ -464,24 +478,41 @@ app.get("/get-products", auth, async (req, res) => {
 });
 app.get("/edit-product/:id", async (req, res) => {
   try {
-    const products = await productModel.findById(req.params.id);
+    const products = await productModel.findById(req.params.id).populate("category");
     const categories = await categoryModel.find();
 
     res.render("./backendviews/editProduct", { products, categories });
   } catch (error) {
+    console.error("Error fetching product for edit:", error);
     res.status(500).send("Error fetching product: " + error.message);
   }
 });
 app.post("/update-product/:id", upload.single("image"), async (req, res) => {
   try {
-    const { clientName, productName, category, gender, price } = req.body;
-    const updateData = { clientName, productName, category, gender, price };
+    const { productName, category, gender, price, discount } = req.body;
+    
+    // Build the update data object
+    const updateData = { 
+      productName, 
+      gender, 
+      price, 
+      discount: discount || 0 
+    };
 
-    if (req.file) updateData.image = req.file.path;
+    // Set category as ObjectId
+    if (category) {
+      updateData.category = category; // It's already the category ID from the form
+    }
+
+    // Add image if provided
+    if (req.file) {
+      updateData.image = req.file.path;
+    }
 
     await productModel.findByIdAndUpdate(req.params.id, updateData);
     res.redirect("/get-products");
   } catch (error) {
+    console.error("Error updating product:", error);
     res.status(500).send("Error updating product: " + error.message);
   }
 });
@@ -560,7 +591,6 @@ app.get("/search", async (req, res) => {
     if (searchQuery) {
       searchCriteria.$or = [
         { productName: { $regex: searchQuery, $options: 'i' } },
-        { clientName: { $regex: searchQuery, $options: 'i' } },
         { description: { $regex: searchQuery, $options: 'i' } }
       ];
     }
