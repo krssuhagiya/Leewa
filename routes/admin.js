@@ -6,7 +6,7 @@ const Order = require("../models/order");
 router.get("/get-orders", async (req, res) => {
   try {
     const orders = await Order.find().populate("products.product");
-    res.render("./backendViews/orders", { orders });
+    res.render("./backendviews/orders", { orders });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Internal server error" });

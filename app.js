@@ -87,8 +87,8 @@ app.get("/men", async (req, res) => {
 
 app.get("/women", async (req, res) => {
   try {
-    const products = await productModel.find({ gender: "Women" }); // Fetch men's products from DB
-    res.render("Women", { products }); // Pass products to the EJS template
+    const products = await productModel.find({ gender: "Women" }); // Fetch women's products from DB
+    res.render("women", { products }); // Pass products to the EJS template
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).send("Internal Server Error");
